@@ -1,0 +1,89 @@
+name: CI — Pruebas automáticas
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-auth-service:
+    name: Test auth-service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          cd auth-service
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+
+      - name: Ejecutar pruebas
+        run: |
+          cd auth-service
+          pytest tests/ -v --tb=short
+        env:
+          DATABASE_URL: sqlite:///./test.db
+          AUTH_SECRET_KEY: test_secret_key_for_ci
+
+  test-student-service:
+    name: Test student_service
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: |
+          cd student_service
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+      - name: Ejecutar pruebas
+        run: |
+          cd student_service
+          pytest tests/ -v --tb=short
+        env:
+          DATABASE_URL: sqlite:///./test.db
+          AUTH_SECRET_KEY: test_secret_key_for_ci
+
+  test-gateway:
+    name: Test gateway_service
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: |
+          cd gateway_service
+          pip install -r requirements.txt
+          pip install pytest httpx
+      - name: Ejecutar pruebas
+        run: |
+          cd gateway_service
+          pytest tests/ -v --tb=short
+
+  lint:
+    name: Lint y formato
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar flake8
+        run: pip install flake8
+      - name: Verificar estilo de código
+        run: |
+          flake8 auth-service/app/ --max-line-length=120 --ignore=E501,W503
+          flake8 student_service/app/ --max-line-length=120 --ignore=E501,W503
+          flake8 gateway_service/ --max-line-length=120 --ignore=E501,W503
