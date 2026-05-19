@@ -1,5 +1,6 @@
 import csv
 import io
+import os
 from datetime import date
 
 import requests
@@ -11,10 +12,11 @@ from reportlab.platypus import (
     Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 )
 
-GRADES_URL = "http://grades_service:8000"
-STUDENTS_URL = "http://student_service:8000"
-COURSES_URL = "http://academic_service:8000"
-PAYMENT_URL = "http://payment_service:8000"
+GRADES_URL = os.getenv("GRADES_URL", "http://grades_service:8000")
+STUDENTS_URL = os.getenv("STUDENTS_URL", "http://student_service:8000")
+COURSES_URL = os.getenv("COURSES_URL", "http://academic_service:8000")
+PAYMENT_URL = os.getenv("PAYMENT_URL", "http://payment_service:8000")
+
 
 PRIMARY = colors.HexColor("#4f8ef7")
 LIGHT_BG = colors.HexColor("#f0f4ff")
