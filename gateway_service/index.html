@@ -3177,6 +3177,9 @@
     }
 
     let TOKEN = localStorage.getItem('token') || null;
+    if (!TOKEN) {
+    window.location.href = '/login.html';
+    }
     let USER_ROLE = normalizeRole(localStorage.getItem('user_role'));
     let USER_EMAIL = localStorage.getItem('user_email') || null;
     let MY_STUDENT = null;
