@@ -6,9 +6,10 @@ from sqlalchemy.orm import Session
 
 from . import models, schemas
 
-ACADEMIC_SERVICE_URL = "http://academic_service:8000"
-GRADES_SERVICE_URL = "http://grades_service:8000"
-STUDENT_SERVICE_URL = "http://student_service:8000"
+import os
+ACADEMIC_SERVICE_URL = os.getenv("ACADEMIC_SERVICE_URL", "http://academic_service:8000")
+GRADES_SERVICE_URL = os.getenv("GRADES_SERVICE_URL", "http://grades_service:8000")
+STUDENT_SERVICE_URL = os.getenv("STUDENT_SERVICE_URL", "http://student_service:8000")
 PASSING_SCORE = 3.0
 REQUEST_TIMEOUT = 5
 SECRET_KEY = "esto_ta_protegido"

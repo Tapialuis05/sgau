@@ -1,5 +1,6 @@
 from collections.abc import Callable
 
+import os
 import requests
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -7,7 +8,8 @@ from jose import JWTError, jwt
 
 SECRET_KEY = "esto_ta_protegido"
 ALGORITHM = "HS256"
-STUDENT_SERVICE_URL = "http://student_service:8000"
+
+STUDENT_SERVICE_URL = os.getenv("STUDENT_SERVICE_URL", "http://student_service:8000")
 
 security = HTTPBearer()
 

@@ -8,6 +8,7 @@ from app.auth import verify_admin
 from app.auth import verify_student
 from app.auth import verify_teacher
 import requests
+import os
 
 router = APIRouter()
 
@@ -64,7 +65,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
                 "role": "admin"
             })
             student_response = requests.post(
-                "http://student_service:8000/students/",
+                f"{os.getenv('STUDENT_SERVICE_URL', 'http://student_service:8000')}/students/",
                 json={
                     "user_id": new_user.id,
                     "email": user.email,
@@ -232,7 +233,7 @@ def admin_profile(user=Depends(verify_admin)):
 @router.get("/test-student")
 def test_student():
     try:
-        response = requests.get("http://student_service:8001/")
+        response = requests.get(f"{os.getenv('STUDENT_SERVICE_URL', 'http://student_service:8000')}/")
         return response.json()
     except Exception as e:
         return {"error": str(e)}

@@ -1,5 +1,6 @@
 import base64
 
+import os
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile
 from sqlalchemy.orm import Session
 from app.db import SessionLocal
@@ -14,7 +15,8 @@ from app.auth import (
     resolve_teacher_id,
 )
 
-ENROLLMENT_SERVICE_URL = "http://enrollment_service:8000"
+
+ENROLLMENT_SERVICE_URL = os.getenv("ENROLLMENT_SERVICE_URL", "http://enrollment_service:8000")
 
 router = APIRouter()
 
@@ -73,7 +75,7 @@ def create_grade(
     try:
         service_token = create_service_token({"sub": "grades_service", "role": "system"})
         requests.post(
-            "http://student_service:8000/students/update-average",
+            f"{os.getenv('STUDENT_SERVICE_URL', 'http://student_service:8000')}/students/update-average",
             json={"student_id": grade.student_id, "average": round(avg, 2)},
             headers={"Authorization": f"Bearer {service_token}"},
             timeout=5
@@ -108,7 +110,7 @@ def update_grade(
     try:
         service_token = create_service_token({"sub": "grades_service", "role": "system"})
         requests.post(
-            "http://student_service:8000/students/update-average",
+            f"{os.getenv('STUDENT_SERVICE_URL', 'http://student_service:8000')}/students/update-average",
             json={"student_id": updated.student_id, "average": round(avg, 2)},
             headers={"Authorization": f"Bearer {service_token}"},
             timeout=5
