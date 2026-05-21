@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.responses import HTMLResponse
+from prometheus_fastapi_instrumentator import Instrumentator
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 import models, schemas, crud
@@ -9,6 +10,7 @@ from auth import get_current_user, require_roles
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Academic Offer Service")
+Instrumentator().instrument(app).expose(app, include_in_schema=False)
 
 # ── Asegurar esquema de Teacher si la tabla ya existe ──
 from sqlalchemy import inspect, text
@@ -209,6 +211,16 @@ def ensure_course_schema():
             conn.commit()
 
 
+def ensure_course_session_schema():
+    inspector = inspect(engine)
+    if "course_sessions" in inspector.get_table_names():
+        columns = [col["name"] for col in inspector.get_columns("course_sessions")]
+        with engine.connect() as conn:
+            if "teacher_id" not in columns:
+                conn.execute(text("ALTER TABLE course_sessions ADD COLUMN IF NOT EXISTS teacher_id INTEGER"))
+            conn.commit()
+
+
 def ensure_career_schema():
     inspector = inspect(engine)
     if "careers" not in inspector.get_table_names():
@@ -240,6 +252,7 @@ def ensure_career_schema():
 ensure_teacher_schema()
 ensure_career_schema()
 ensure_course_schema()
+ensure_course_session_schema()
 
 def seed_adm_courses_by_semester():
     adm_courses = {
@@ -887,9 +900,19 @@ def update_assignment_api(
 # ── Schedules (Horario) ──
 def _enrich_session(session: models.CourseSession, db: Session) -> dict:
     course = db.query(models.Course).filter(models.Course.id == session.course_id).first()
+    teacher = None
+    if getattr(session, "teacher_id", None) is not None:
+        teacher = db.query(models.Teacher).filter(models.Teacher.id == session.teacher_id).first()
+
+    teacher_name = None
+    if teacher:
+        teacher_name = teacher.name or f"{teacher.first_name or ''} {teacher.last_name or ''}".strip() or teacher.email
+
     return {
         "id": session.id,
         "course_id": session.course_id,
+        "teacher_id": getattr(session, "teacher_id", None),
+        "teacher_name": teacher_name,
         "course_code": course.code if course else None,
         "course_name": course.name if course else None,
         "career_id": course.career_id if course else None,

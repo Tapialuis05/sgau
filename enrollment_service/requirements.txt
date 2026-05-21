@@ -5,3 +5,6 @@ psycopg2-binary
 python-dotenv
 requests
 python-jose
+prometheus-fastapi-instrumentator
+pytest
+httpx

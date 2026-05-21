@@ -727,10 +727,95 @@
     }
 
     /* ── Pestañas de pago ── */
+    .payment-stats-grid {
+      margin-bottom: 1.15rem;
+    }
+
+    .payment-stats-grid .stat-card {
+      border-radius: 16px;
+      border: 1px solid rgba(59, 130, 246, 0.22);
+      background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 255, 0.9));
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .payment-stats-grid .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.12);
+    }
+
+    .payment-shell {
+      border-radius: 18px;
+      border: 1px solid rgba(59, 130, 246, 0.22);
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.97), rgba(248, 250, 252, 0.94));
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
+      padding: 1.3rem;
+    }
+
+    .pay-tab-strip {
+      display: inline-flex;
+      gap: .45rem;
+      padding: .35rem;
+      border-radius: 999px;
+      background: rgba(29, 78, 216, 0.07);
+      border: 1px solid rgba(29, 78, 216, 0.15);
+      margin-bottom: 1.1rem;
+      flex-wrap: wrap;
+    }
+
     .pay-tab.active {
-      background: rgba(29, 78, 216, 0.12);
+      background: rgba(29, 78, 216, 0.16);
       color: var(--accent);
-      border-color: rgba(29, 78, 216, 0.3);
+      border-color: rgba(29, 78, 216, 0.4);
+      box-shadow: 0 6px 14px rgba(29, 78, 216, 0.17);
+    }
+
+    .pay-tab {
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+
+    .payment-main-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .8rem;
+    }
+
+    .pay-method-fields {
+      background: rgba(240, 249, 255, 0.58);
+      border: 1px solid rgba(59, 130, 246, 0.16);
+      border-radius: 12px;
+      padding: .9rem;
+      margin-top: .35rem;
+    }
+
+    .payment-actions {
+      display: flex;
+      gap: .75rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-top: .6rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.45);
+    }
+
+    .payment-history-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.92));
+    }
+
+    .payment-history-table tbody tr td {
+      transition: background .18s ease;
+    }
+
+    .payment-history-table tbody tr:hover td {
+      background: rgba(219, 234, 254, 0.42);
     }
 
     .pay-method-fields {
@@ -1008,6 +1093,10 @@
       .hero-meta {
         grid-template-columns: 1fr;
       }
+
+      .payment-main-row {
+        grid-template-columns: 1fr;
+      }
     }
 
     #toast {
@@ -1040,6 +1129,219 @@
     #toast.err {
       border-color: rgba(239, 68, 68, 0.4);
       color: var(--danger);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 9999;
+    }
+
+    .modal-box {
+      width: min(920px, 96vw);
+      max-height: 88vh;
+      overflow: auto;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      box-shadow: 0 24px 64px rgba(2, 6, 23, 0.35);
+      padding: 1rem 1.1rem;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+
+    .enrollment-inline-sections {
+      margin-top: .75rem;
+      padding: .6rem;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      background: rgba(240, 249, 255, 0.55);
+      font-size: .82rem;
+    }
+
+    .enrollment-inline-sections .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: .45rem;
+      align-items: center;
+      padding: .42rem .3rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .enrollment-inline-sections .row:last-child {
+      border-bottom: none;
+    }
+
+    .enrollment-semester-shell {
+      margin-bottom: 1rem;
+    }
+
+    .enrollment-semester-title {
+      font-family: var(--serif);
+      font-size: 1.22rem;
+      color: #0f172a;
+      margin-bottom: .8rem;
+      letter-spacing: .2px;
+    }
+
+    .enrollment-semester-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: .9rem;
+    }
+
+    .enrollment-course-card {
+      padding: .95rem;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.08), transparent 35%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.9));
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .enrollment-course-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(29, 78, 216, 0.35);
+      box-shadow: 0 10px 24px rgba(29, 78, 216, 0.12);
+    }
+
+    .enrollment-course-card.is-selected {
+      border-color: rgba(29, 78, 216, 0.45);
+      box-shadow: 0 12px 26px rgba(29, 78, 216, 0.16);
+    }
+
+    .enrollment-course-card.is-blocked {
+      border-color: rgba(220, 38, 38, 0.32);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(254, 242, 242, 0.9));
+    }
+
+    .enrollment-course-head {
+      display: flex;
+      justify-content: space-between;
+      gap: .6rem;
+      align-items: flex-start;
+      margin-bottom: .45rem;
+    }
+
+    .enrollment-course-code {
+      font-family: var(--mono);
+      font-size: .84rem;
+      color: var(--accent);
+      letter-spacing: .3px;
+      font-weight: 700;
+    }
+
+    .enrollment-course-name {
+      font-size: 1.03rem;
+      line-height: 1.35;
+      color: #0f172a;
+      margin-bottom: .52rem;
+      font-weight: 600;
+    }
+
+    .enrollment-status {
+      font-size: .73rem;
+      padding: .2rem .52rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .enrollment-status.available {
+      color: #1d4ed8;
+      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .enrollment-status.selected {
+      color: #1e3a8a;
+      background: rgba(29, 78, 216, 0.14);
+      border-color: rgba(29, 78, 216, 0.25);
+    }
+
+    .enrollment-status.completed {
+      color: #166534;
+      background: rgba(22, 163, 74, 0.15);
+      border-color: rgba(22, 163, 74, 0.22);
+    }
+
+    .enrollment-status.blocked {
+      color: #991b1b;
+      background: rgba(239, 68, 68, 0.14);
+      border-color: rgba(239, 68, 68, 0.24);
+    }
+
+    .enrollment-course-meta {
+      display: flex;
+      gap: .55rem;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: .79rem;
+      color: var(--muted);
+      margin-bottom: .68rem;
+    }
+
+    .enrollment-prereq {
+      color: #991b1b;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.16);
+      border-radius: 999px;
+      padding: .16rem .42rem;
+      font-size: .72rem;
+    }
+
+    .enrollment-selected-section {
+      font-size: .78rem;
+      color: #1e3a8a;
+      margin-bottom: .62rem;
+      padding: .32rem .5rem;
+      border-radius: 8px;
+      background: rgba(29, 78, 216, 0.08);
+      border: 1px solid rgba(29, 78, 216, 0.16);
+    }
+
+    .enrollment-course-actions {
+      display: flex;
+      gap: .45rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .enrollment-inline-sections .row {
+        grid-template-columns: 1fr;
+      }
+
+      .pay-tab-strip {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+      }
+
+      .pay-tab {
+        width: 100%;
+      }
+
+      .payment-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .payment-actions .btn {
+        width: 100%;
+      }
     }
 
     /* ── Timetable ── */
@@ -1258,12 +1560,8 @@
         <span class="icon">＋</span> Crear
       </button>
 
-      <div class="nav-section">Mis materias</div>
       <button id="nav-mis-cursos" class="nav-btn teacher-only" data-section="mis-cursos" onclick="goTo('mis-cursos', this)">
         <span class="icon">📚</span> Mis cursos
-      </button>
-      <button id="nav-my-enrollments" class="nav-btn" data-section="my-enrollments" onclick="goTo('my-enrollments', this)">
-        <span class="icon">📝</span> Materias inscritas
       </button>
 
       <div class="nav-section">Academic</div>
@@ -1293,6 +1591,9 @@
       </button>
       <button id="nav-comunicaciones" class="nav-btn teacher-only student-only" data-section="comunicaciones" onclick="goTo('comunicaciones', this)">
         <span class="icon">📢</span> Comunicaciones
+      </button>
+      <button id="nav-my-enrollments" class="nav-btn" data-section="my-enrollments" onclick="goTo('my-enrollments', this)">
+        <span class="icon">📝</span> Materias inscritas
       </button>
       <button id="nav-payment" class="nav-btn" data-section="payment" onclick="goTo('payment', this)">
         <span class="icon">💳</span> Pagos
@@ -1589,20 +1890,20 @@
           <div class="admin-grid">
             <div class="quick-card">
               <div>
-                <div class="topline"><span>Perfil</span><span id="student-kpi-document">—</span></div>
-                <h3>Datos personales</h3>
-                <p>Mantén al día tu información básica y consulta tu programa académico.</p>
-              </div>
-              <button class="btn btn-secondary" onclick="goTo('my-profile', document.getElementById('nav-my-profile'))">Abrir perfil</button>
-            </div>
-
-            <div class="quick-card">
-              <div>
                 <div class="topline"><span>Inscripción</span><span id="student-kpi-enrollments">—</span></div>
                 <h3>Materias del semestre</h3>
                 <p>Consulta las materias inscritas y revisa el detalle de tu carga actual.</p>
               </div>
               <button class="btn btn-secondary" onclick="goTo('my-enrollments', document.getElementById('nav-my-enrollments'))">Abrir materias</button>
+            </div>
+
+            <div class="quick-card">
+              <div>
+                <div class="topline"><span>Perfil</span><span id="student-kpi-document">—</span></div>
+                <h3>Datos personales</h3>
+                <p>Mantén al día tu información básica y consulta tu programa académico.</p>
+              </div>
+              <button class="btn btn-secondary" onclick="goTo('my-profile', document.getElementById('nav-my-profile'))">Abrir perfil</button>
             </div>
 
             <div class="quick-card">
@@ -1848,6 +2149,7 @@
       <div id="sec-my-enrollments" class="section student-only">
         <div class="section-title">📚 Matriculación de Materias</div>
         <div class="section-subtitle">Gestiona tu matriculación por semestre</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:-.25rem;margin-bottom:.6rem;">UI matrícula v2 inline</div>
 
         <!-- Panel con semestres en tabs -->
         <div class="card">
@@ -1912,7 +2214,7 @@
             <label>Apellido</label>
             <input id="profile-apellido" placeholder="Pérez García" />
           </div>
-          <div class="field">
+          <div class="field" id="profile-program-field">
             <label id="profile-program-label">Carrera</label>
             <select id="profile-program">
               <option value="">Sin carrera</option>
@@ -2049,13 +2351,13 @@
           <div class="row">
             <div class="field">
               <label>Carrera</label>
-              <select id="sch-career" style="width:100%;" onchange="loadScheduleCourses()">
+              <select id="sch-career" style="width:100%;" onchange="loadScheduleCourses(); loadScheduleTeachers()">
                 <option value="">Selecciona carrera</option>
               </select>
             </div>
             <div class="field">
               <label>Materia</label>
-              <select id="sch-course" style="width:100%;">
+              <select id="sch-course" style="width:100%;" onchange="loadScheduleTeachers()">
                 <option value="">Selecciona materia</option>
               </select>
             </div>
@@ -2257,20 +2559,9 @@
         <div class="card" style="margin-top: 1rem">
           <div class="section-subtitle">Asignar docente a curso</div>
           <div class="field">
-            <label>Buscar docente</label>
-            <input id="assign-teacher-search" placeholder="Cédula o nombre" oninput="populateAssignmentTeacherSelect()" />
-          </div>
-          <div class="field">
-            <label>Docente</label>
-            <select id="assign-teacher-select" style="width: 100%;" onchange="onAssignTeacherChange()">
-              <option value="">Selecciona un docente</option>
-            </select>
-            <div id="assign-detected-career" class="assignment-detected-career">Carrera detectada: —</div>
-          </div>
-          <div class="field">
             <label>Carrera</label>
-            <select id="assign-course-career-filter" style="width: 100%;" onchange="populateAssignmentCourseSelect()">
-              <option value="">Todas las carreras</option>
+            <select id="assign-course-career-filter" style="width: 100%;" onchange="onAssignmentCareerChange()">
+              <option value="">Selecciona una carrera</option>
             </select>
           </div>
           <div class="field">
@@ -2279,17 +2570,27 @@
           </div>
           <div class="field">
             <label>Curso</label>
-            <select id="assign-course-select" style="width: 100%;">
-              <option value="">Selecciona un curso</option>
+            <select id="assign-course-select" style="width: 100%;" onchange="onAssignmentCourseChange()">
+              <option value="">Selecciona una carrera primero</option>
+            </select>
+            <div id="assign-detected-career" class="assignment-detected-career">Carrera detectada: —</div>
+          </div>
+          <div class="field">
+            <label>Buscar docente</label>
+            <input id="assign-teacher-search" placeholder="Cédula o nombre" oninput="populateAssignmentTeacherSelect()" />
+          </div>
+          <div class="field">
+            <label>Docente</label>
+            <select id="assign-teacher-select" style="width: 100%;">
+              <option value="">Selecciona carrera y curso primero</option>
             </select>
           </div>
           <div id="assign-edit-banner" style="display:none; margin-bottom:.6rem; padding:.55rem .7rem; border:1px solid var(--line); border-radius:10px; color: var(--muted);">
             Editando asignación <span id="assign-edit-id"></span>. Guarda cambios para actualizarla.
           </div>
-          <div id="assign-rule-hint" style="font-size: .85rem; color: var(--muted); margin-bottom: .6rem;">Paso 1: selecciona docente. Paso 2: se detecta la carrera. Paso 3: se muestran cursos permitidos.</div>
+          <div id="assign-rule-hint" style="font-size: .85rem; color: var(--muted); margin-bottom: .6rem;">Paso 1: selecciona carrera. Paso 2: elige materia. Paso 3: selecciona docente permitido.</div>
           <button class="btn btn-primary" id="assign-submit-btn" onclick="assignTeacher()">Asignar</button>
           <button class="btn btn-secondary" id="assign-cancel-btn" style="display:none" onclick="cancelAssignmentEdit()">Cancelar edición</button>
-          <button class="btn btn-secondary" onclick="loadAssignments()">Actualizar asignaciones</button>
         </div>
 
         <div class="card" style="margin-top: 1rem">
@@ -2373,6 +2674,11 @@
                 <tr><td colspan="8"><div class="empty-state"><div class="big">◌</div>Cargando...</div></td></tr>
               </tbody>
             </table>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:.5rem;align-items:center;margin-top:.75rem;">
+            <button class="btn btn-secondary btn-sm" onclick="loadEnrollmentsTable(Math.max(1, ENROLLMENTS_ADMIN_PAGE - 1))">◀ Anterior</button>
+            <span id="enrollments-admin-page-label" style="font-size:.85rem;color:var(--muted);">Página 1</span>
+            <button class="btn btn-secondary btn-sm" onclick="loadEnrollmentsTable(ENROLLMENTS_ADMIN_PAGE + 1)">Siguiente ▶</button>
           </div>
         </div>
         <div class="card" style="margin-top: 1rem">
@@ -2943,10 +3249,10 @@
 
       <div id="sec-payment" class="section">
         <div class="section-title">Pagos</div>
-        <div class="section-subtitle">Gestión financiera y métodos de pago: PSE, Nequi, Bancolombia, Tarjeta</div>
+        <div class="section-subtitle">Gestión financiera y checkout seguro con Wompi</div>
 
         <!-- Resumen financiero -->
-        <div class="stats-grid" id="payment-summary-cards" style="grid-template-columns:repeat(4,1fr);display:none;">
+        <div class="stats-grid payment-stats-grid" id="payment-summary-cards" style="grid-template-columns:repeat(4,1fr);display:none;">
           <div class="stat-card">
             <div class="num" id="pay-stat-debt" style="color:var(--danger)">—</div>
             <div class="label">Deuda total</div>
@@ -2967,115 +3273,47 @@
 
         <!-- Panel estudiante: formulario de pago -->
         <div id="payment-student-panel" style="display:none;">
-          <div class="card" style="margin-bottom:1rem;">
-            <div class="card-title">Realizar pago</div>
+          <div class="card payment-shell" style="margin-bottom:1rem;">
+            <div class="card-title">Checkout de matrícula</div>
+            <p style="color:var(--muted);font-size:.92rem;margin-bottom:.35rem;">
+              Los métodos de pago y datos bancarios se gestionan directamente en Wompi.
+            </p>
+            <p style="color:var(--muted);font-size:.82rem;margin-bottom:.95rem;">
+              Aquí solo generas y verificas el checkout de tu factura pendiente.
+            </p>
 
-            <!-- Pestañas de método -->
-            <div style="display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap;">
-              <button class="btn btn-secondary btn-sm pay-tab active" onclick="selectPayMethod('pse',this)" id="tab-pse">🏦 PSE</button>
-              <button class="btn btn-secondary btn-sm pay-tab" onclick="selectPayMethod('nequi',this)" id="tab-nequi">💜 Nequi</button>
-              <button class="btn btn-secondary btn-sm pay-tab" onclick="selectPayMethod('bancolombia',this)" id="tab-bancolombia">🟡 Bancolombia</button>
-              <button class="btn btn-secondary btn-sm pay-tab" onclick="selectPayMethod('tarjeta',this)" id="tab-tarjeta">💳 Tarjeta</button>
-            </div>
-
-            <div class="row">
-              <div class="field">
-                <label>Monto a pagar (COP)</label>
-                <input id="pay-amount" type="number" min="1000" step="1000" placeholder="Ej: 2500000" />
-              </div>
-              <div class="field">
-                <label>Concepto</label>
-                <select id="pay-concept" style="width:100%;">
-                  <option value="Matrícula">Matrícula</option>
-                  <option value="Derechos de grado">Derechos de grado</option>
-                  <option value="Certificados">Certificados</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Campos PSE / Bancolombia -->
-            <div id="pay-fields-pse" class="pay-method-fields">
-              <div class="field">
-                <label>Banco</label>
-                <select id="pay-bank" style="width:100%;">
-                  <option value="">Cargando bancos...</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>Tipo de persona</label>
-                <select id="pay-person-type" style="width:100%;">
-                  <option value="0">Natural</option>
-                  <option value="1">Jurídica</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>Tipo de documento</label>
-                <select id="pay-doc-type" style="width:100%;">
-                  <option value="CC">Cédula de ciudadanía</option>
-                  <option value="CE">Cédula extranjería</option>
-                  <option value="TI">Tarjeta de identidad</option>
-                  <option value="PAS">Pasaporte</option>
-                </select>
-              </div>
-              <p style="color:var(--muted);font-size:.8rem;margin-top:.5rem;">Serás redirigido al portal seguro de tu banco para completar el pago.</p>
-            </div>
-
-            <!-- Campos Nequi -->
-            <div id="pay-fields-nequi" class="pay-method-fields" style="display:none;">
-              <div class="field">
-                <label>Número de celular Nequi</label>
-                <input id="pay-nequi-phone" type="tel" placeholder="Ej: 3001234567" maxlength="10" />
-              </div>
-              <p style="color:var(--muted);font-size:.8rem;margin-top:.5rem;">Recibirás una notificación push en la app Nequi para aprobar el pago.</p>
-            </div>
-
-            <!-- Campos Tarjeta -->
-            <div id="pay-fields-tarjeta" class="pay-method-fields" style="display:none;">
-              <div class="field">
-                <label>Número de tarjeta</label>
-                <input id="pay-card-number" type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)" />
-              </div>
-              <div class="row">
-                <div class="field">
-                  <label>Vencimiento (MM/AA)</label>
-                  <input id="pay-card-exp" type="text" placeholder="MM/AA" maxlength="5" />
-                </div>
-                <div class="field">
-                  <label>CVV</label>
-                  <input id="pay-card-cvv" type="password" placeholder="•••" maxlength="4" />
-                </div>
-              </div>
-              <div class="field">
-                <label>Nombre en la tarjeta</label>
-                <input id="pay-card-name" type="text" placeholder="JUAN PEREZ" style="text-transform:uppercase;" />
-              </div>
-              <div class="field">
-                <label>Cuotas</label>
-                <select id="pay-card-installments" style="width:100%;">
-                  <option value="1">1 cuota (sin intereses)</option>
-                  <option value="3">3 cuotas</option>
-                  <option value="6">6 cuotas</option>
-                  <option value="12">12 cuotas</option>
-                  <option value="24">24 cuotas</option>
-                  <option value="36">36 cuotas</option>
-                </select>
-              </div>
-            </div>
+            <!-- Campos técnicos ocultos para mantener compatibilidad del flujo actual -->
+            <input id="pay-amount" type="number" min="1000" step="1000" style="display:none;" />
+            <select id="pay-concept" style="display:none;">
+              <option value="Matrícula">Matrícula</option>
+              <option value="Derechos de grado">Derechos de grado</option>
+              <option value="Certificados">Certificados</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <select id="pay-bank" style="display:none;"><option value="">—</option></select>
+            <select id="pay-person-type" style="display:none;"><option value="0">Natural</option></select>
+            <select id="pay-doc-type" style="display:none;"><option value="CC">CC</option></select>
+            <input id="pay-nequi-phone" type="tel" style="display:none;" />
+            <input id="pay-card-number" type="text" style="display:none;" />
+            <input id="pay-card-exp" type="text" style="display:none;" />
+            <input id="pay-card-cvv" type="password" style="display:none;" />
+            <input id="pay-card-name" type="text" style="display:none;" />
+            <select id="pay-card-installments" style="display:none;"><option value="1">1</option></select>
 
             <div id="pay-result-area" style="margin-top:1rem;min-height:32px;"></div>
 
-            <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
+            <div class="payment-actions">
               <button class="btn btn-primary" id="btn-pay-submit" onclick="submitPayment()">Pagar ahora</button>
               <button class="btn btn-secondary btn-sm" onclick="loadPaymentSection()">🔁 Actualizar resumen</button>
+              <button class="btn btn-secondary btn-sm" onclick="clearAllPendingEnrollmentLocalState()">Limpiar factura pendiente</button>
             </div>
           </div>
 
           <!-- Historial de pagos estudiante -->
-          <div class="card">
+          <div class="card payment-history-card">
             <div class="card-title">Historial de pagos</div>
             <div class="table-wrap">
-              <table>
+              <table class="payment-history-table">
                 <thead>
                   <tr><th>Fecha</th><th>Concepto</th><th>Método</th><th>Monto</th><th>Referencia</th><th>Estado</th></tr>
                 </thead>
@@ -3149,6 +3387,8 @@
 
   <div id="toast"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
   <script>
     const API_BASE = "https://sgau-gateway-service.onrender.com";
 
@@ -3177,9 +3417,6 @@
     }
 
     let TOKEN = localStorage.getItem('token') || null;
-    if (!TOKEN) {
-    window.location.href = 'https://sgau.vercel.app/login.html';;
-    }  
     let USER_ROLE = normalizeRole(localStorage.getItem('user_role'));
     let USER_EMAIL = localStorage.getItem('user_email') || null;
     let MY_STUDENT = null;
@@ -3965,17 +4202,21 @@
 
     async function buildEnrollmentDetail(enrollment) {
       const course = await fetchCourse(enrollment.course_id);
+      const sessions = await fetchCourseSessions(enrollment.course_id);
+      const selectedSession = sessions.find(session => Number(session.id) === Number(enrollment.section_id));
       const teachers = await fetchCourseTeachers(enrollment.course_id);
 
       const courseLabel = course
         ? `${course.code ? `${course.code} — ` : ''}${course.name || `Curso ${enrollment.course_id}`}`
         : `Curso ${enrollment.course_id}`;
 
-      const scheduleLabel = course?.day_of_week && course?.start_time && course?.end_time
-        ? `${course.day_of_week} ${formatRange(course.start_time, course.end_time)}`
-        : (course?.schedule || 'Por definir');
+      const scheduleLabel = selectedSession?.day_of_week && selectedSession?.start_time && selectedSession?.end_time
+        ? `${selectedSession.day_of_week} ${formatRange(selectedSession.start_time, selectedSession.end_time)}`
+        : course?.day_of_week && course?.start_time && course?.end_time
+          ? `${course.day_of_week} ${formatRange(course.start_time, course.end_time)}`
+          : (course?.schedule || 'Por definir');
 
-      const classroomLabel = course?.location || 'Por definir';
+      const classroomLabel = selectedSession?.classroom || course?.location || 'Por definir';
 
       const teacherLabel = teachers.length > 0
         ? teachers.map(t => getTeacherDisplayName(t)).join(', ')
@@ -3987,7 +4228,7 @@
         courseLabel,
         semester: course?.semester || '-',
         credits: course?.credits || 0,
-        section: enrollment.section_id || '-',
+        section: selectedSession?.section || enrollment.section_id || '-',
         scheduleLabel,
         classroomLabel,
         teacherLabel,
@@ -4062,22 +4303,320 @@
     let ENROLLMENT_CART = {};  // { courseId: { courseData, sectionId } }
     let COMPLETED_COURSES = {};  // { courseId: true }
     let MY_CAREER_ID = null;  // Para guardar la carrera del estudiante
+    const COURSE_SESSIONS_CACHE = new Map();
+    const ENROLLMENT_COURSE_INDEX = new Map();
+    let ENROLLMENT_SECTION_OPTIONS = new Map();
+    let PENDING_ENROLLMENT_COURSE = null;
+    let ENROLLMENTS_ADMIN_PAGE = 1;
+    const ENROLLMENTS_ADMIN_LIMIT = 25;
+    let ENROLLMENTS_ADMIN_TOTAL = 0;
+    let ENROLLMENT_ACTIONS_BOUND = false;
+    const INLINE_SECTION_CONTEXT = new Map();
+    const PENDING_ENROLLMENT_STORAGE_KEY = 'sgau_pending_enrollment_order';
+    const PENDING_ENROLLMENT_HISTORY_KEY = 'sgau_pending_enrollment_orders';
+    const ACTIVE_PENDING_INVOICE_KEY = 'sgau_pending_enrollment_active_invoice';
+    const ACTIVE_PENDING_PAYMENT_REF_KEY = 'sgau_pending_enrollment_active_payment_ref';
+    let PENDING_ENROLLMENT_ORDER = null;
+    let PAYMENT_HISTORY_CACHE = [];
+
+    function hasCompletedCourseCode(code) {
+      const targetCode = normalizeText(code);
+      if (!targetCode) return false;
+      const completedIds = new Set(Object.keys(COMPLETED_COURSES).map(id => Number(id)));
+      return COURSES.some(c => completedIds.has(Number(c.id)) && normalizeText(c.code) === targetCode);
+    }
+
+    function bindEnrollmentCourseActions() {
+      if (ENROLLMENT_ACTIONS_BOUND) return;
+      const container = document.getElementById('enrollment-content');
+      if (!container) return;
+
+      container.addEventListener('click', (event) => {
+        const btn = event.target.closest('.enrollment-open-sections');
+        if (!btn) return;
+
+        const courseId = Number(btn.dataset.courseId || 0);
+        if (!courseId) {
+          showToast('✗ No se pudo identificar la materia seleccionada', 'err');
+          return;
+        }
+        selectCourseForEnrollmentById(courseId);
+      });
+
+      ENROLLMENT_ACTIONS_BOUND = true;
+    }
+
+    async function fetchCourseSessions(courseId, forceRefresh = false) {
+      if (!forceRefresh && COURSE_SESSIONS_CACHE.has(courseId)) {
+        return COURSE_SESSIONS_CACHE.get(courseId);
+      }
+
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 7000);
+      let response;
+      try {
+        response = await fetch(`${API_BASE}/academic/api/schedules/?course_id=${courseId}`, {
+          headers: getAuthHeaders(),
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timer);
+      }
+
+      const sessions = response.ok ? await response.json() : [];
+      const normalized = Array.isArray(sessions) ? sessions : [];
+
+      // Solo cacheamos resultados con datos para no dejar vacio "pegado" en la sesion.
+      if (normalized.length > 0) {
+        COURSE_SESSIONS_CACHE.set(courseId, normalized);
+      } else {
+        COURSE_SESSIONS_CACHE.delete(courseId);
+      }
+
+      return normalized;
+    }
+
+    async function openCourseSectionsModal(courseId, code, name, credits, courseMeta = {}) {
+      const modal = document.getElementById('modal-course-sections');
+      const title = document.getElementById('modal-sections-title');
+      const tbody = document.getElementById('modal-sections-tbody');
+
+      if (title) title.textContent = `Clases disponibles de ${code} - ${name}`;
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">Cargando clases disponibles...</td></tr>';
+      }
+      if (modal) modal.style.display = 'flex';
+
+      let sessions = await fetchCourseSessions(courseId);
+      if (!sessions.length) {
+        sessions = await fetchCourseSessions(courseId, true);
+      }
+
+      if (!sessions.length) {
+        const course = await fetchCourse(courseId);
+        if (course?.day_of_week && course?.start_time && course?.end_time) {
+          sessions = [{
+            id: `fallback-${courseId}`,
+            course_id: courseId,
+            day_of_week: course.day_of_week,
+            start_time: course.start_time,
+            end_time: course.end_time,
+            classroom: course.location || 'Por definir',
+            section: 'Única',
+            modality: course.modality || null,
+            isFallback: true,
+          }];
+        } else {
+          if (title) title.textContent = `Clases disponibles de ${code} - ${name}`;
+          if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">Esta materia no tiene clases publicadas todavia. Intenta recargar la pagina y verifica que las clases esten guardadas.</td></tr>';
+          }
+          if (modal) modal.style.display = 'flex';
+          return;
+        }
+      }
+
+      const teachers = await fetchCourseTeachers(courseId);
+      const teacherLabel = teachers.length > 0
+        ? teachers.map(t => getTeacherDisplayName(t)).join(', ')
+        : 'Por asignar';
+
+      PENDING_ENROLLMENT_COURSE = {
+        courseId,
+        code,
+        name,
+        credits,
+        teacherLabel,
+        prerequisite_codes: Array.isArray(courseMeta.prerequisite_codes) ? courseMeta.prerequisite_codes : [],
+      };
+      ENROLLMENT_SECTION_OPTIONS = new Map(sessions.map(session => [String(session.id), session]));
+
+      document.getElementById('modal-sections-title').textContent = `Clases disponibles de ${code} - ${name}`;
+      document.getElementById('modal-sections-tbody').innerHTML = sessions.map(session => {
+        const selected = ENROLLMENT_CART[courseId]?.sectionId === session.id;
+        const sectionLabel = session.section || `Clase ${session.id}`;
+        return `
+          <tr>
+            <td>${sectionLabel}</td>
+            <td>${session.day_of_week || '-'}</td>
+            <td>${session.start_time && session.end_time ? formatRange(session.start_time, session.end_time) : '-'}</td>
+            <td>${session.classroom || '-'}</td>
+            <td>${teacherLabel}</td>
+            <td>
+              <button class="btn btn-sm ${selected ? 'btn-accent' : 'btn-secondary'}" onclick="confirmCourseSectionSelection('${String(session.id).replace(/'/g, "\\'")}')">
+                ${selected ? '✓ Seleccionada' : 'Elegir'}
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('modal-course-sections').style.display = 'flex';
+    }
+
+    function confirmCourseSectionSelection(sessionId) {
+      if (!PENDING_ENROLLMENT_COURSE) return;
+
+      const session = ENROLLMENT_SECTION_OPTIONS.get(String(sessionId));
+      if (!session) {
+        showToast('✗ No se encontró la clase seleccionada', 'err');
+        return;
+      }
+
+      const { courseId, code, name, credits, teacherLabel, prerequisite_codes } = PENDING_ENROLLMENT_COURSE;
+      const costPerCredit = 145000;
+      ENROLLMENT_CART[courseId] = {
+        courseId,
+        code,
+        name,
+        credits,
+        prerequisite_codes: prerequisite_codes || [],
+        cost: credits * costPerCredit,
+        sectionId: session.isFallback ? null : session.id,
+        requiresConcreteSection: !session.isFallback,
+        sectionLabel: session.section || `Clase ${session.id}`,
+        day_of_week: session.day_of_week,
+        start_time: session.start_time,
+        end_time: session.end_time,
+        classroom: session.classroom,
+        modality: session.modality,
+        teacherLabel,
+      };
+
+      document.getElementById('modal-course-sections').style.display = 'none';
+      updateEnrollmentCart();
+      loadEnrollmentSemester(parseInt(document.querySelector('[id^="sem-tab-"].active')?.id.split('-')[2] || '1'));
+    }
+
+    function selectCourseSectionInline(courseId, sessionId) {
+      const context = INLINE_SECTION_CONTEXT.get(String(courseId));
+      if (!context) {
+        showToast('✗ No se encontró el contexto de clases. Vuelve a cargar.', 'err');
+        return;
+      }
+
+      const session = context.sessionsMap.get(String(sessionId));
+      if (!session) {
+        showToast('✗ No se encontró la clase seleccionada', 'err');
+        return;
+      }
+
+      const { course, teacherLabel, prerequisite_codes } = context;
+      const costPerCredit = 145000;
+      ENROLLMENT_CART[course.id] = {
+        courseId: course.id,
+        code: course.code,
+        name: course.name,
+        credits: Number(course.credits) || 0,
+        prerequisite_codes: prerequisite_codes || [],
+        cost: (Number(course.credits) || 0) * costPerCredit,
+        sectionId: session.isFallback ? null : session.id,
+        requiresConcreteSection: !session.isFallback,
+        sectionLabel: session.section || `Clase ${session.id}`,
+        day_of_week: session.day_of_week,
+        start_time: session.start_time,
+        end_time: session.end_time,
+        classroom: session.classroom,
+        modality: session.modality,
+        teacherLabel,
+      };
+
+      showToast(`✓ Clase ${session.section || session.id} elegida para ${course.code}`, 'ok');
+      updateEnrollmentCart();
+      loadEnrollmentSemester(parseInt(document.querySelector('[id^="sem-tab-"].active')?.id.split('-')[2] || '1'));
+    }
+
+    async function toggleCourseSectionsInline(courseId) {
+      const container = document.getElementById(`course-sections-inline-${courseId}`);
+      const course = ENROLLMENT_COURSE_INDEX.get(Number(courseId));
+      if (!container || !course) {
+        showToast('✗ No se encontró la materia seleccionada', 'err');
+        return;
+      }
+
+      if (container.style.display === 'block') {
+        container.style.display = 'none';
+        return;
+      }
+
+      container.style.display = 'block';
+      container.innerHTML = '<div style="color:var(--muted);">Cargando clases...</div>';
+
+      let sessions = await fetchCourseSessions(course.id);
+      if (!sessions.length) sessions = await fetchCourseSessions(course.id, true);
+
+      if (!sessions.length && course?.day_of_week && course?.start_time && course?.end_time) {
+        sessions = [{
+          id: `fallback-${course.id}`,
+          course_id: course.id,
+          day_of_week: course.day_of_week,
+          start_time: course.start_time,
+          end_time: course.end_time,
+          classroom: course.location || 'Por definir',
+          section: 'Única',
+          modality: course.modality || null,
+          isFallback: true,
+        }];
+      }
+
+      if (!sessions.length) {
+        container.innerHTML = '<div style="color:var(--muted);">No hay clases disponibles para esta materia.</div>';
+        return;
+      }
+
+      const teachers = await fetchCourseTeachers(course.id);
+      const teacherLabel = teachers.length > 0
+        ? teachers.map(t => getTeacherDisplayName(t)).join(', ')
+        : 'Por asignar';
+
+      const sessionsMap = new Map(sessions.map(s => [String(s.id), s]));
+      INLINE_SECTION_CONTEXT.set(String(course.id), {
+        course,
+        teacherLabel,
+        prerequisite_codes: Array.isArray(course.prerequisite_codes) ? course.prerequisite_codes : [],
+        sessionsMap,
+      });
+
+      container.innerHTML = sessions.map(session => {
+        const sid = String(session.id).replace(/'/g, "\\'");
+        return `
+          <div class="row">
+            <div><strong>${session.section || `Clase ${session.id}`}</strong></div>
+            <div>${session.day_of_week || '-'}</div>
+            <div>${session.start_time && session.end_time ? formatRange(session.start_time, session.end_time) : '-'}</div>
+            <button class="btn btn-sm btn-secondary" onclick="selectCourseSectionInline(${course.id}, '${sid}')">Elegir</button>
+          </div>
+          <div style="font-size:.75rem;color:var(--muted);margin:-.2rem 0 .3rem .2rem;">Aula: ${session.classroom || '-'} · Docente: ${teacherLabel}</div>
+        `;
+      }).join('');
+    }
 
     async function loadMyEnrollments() {
       if (!MY_STUDENT) await loadMyStudent();
       if (!MY_STUDENT) return;
 
+      bindEnrollmentCourseActions();
+
       if (!Array.isArray(ACADEMIC_CAREERS) || ACADEMIC_CAREERS.length === 0) {
-        await loadAcademic();
+        await loadCareers();
       }
 
-      const myCareerInfo = ACADEMIC_CAREERS?.find(c => c.name === MY_STUDENT.program);
+      const studentProgram = (MY_STUDENT.program || '').toString().trim();
+      const normalizedProgram = normalizeText(studentProgram);
+      const myCareerInfo = ACADEMIC_CAREERS?.find(c => {
+        const byName = normalizeText(c.name) === normalizedProgram;
+        const byCode = normalizeText(c.code) === normalizedProgram;
+        const byCombined = normalizeText(`${c.code} ${c.name}`).includes(normalizedProgram);
+        return byName || byCode || byCombined;
+      });
+
       if (!myCareerInfo) {
         document.getElementById('enrollment-content').innerHTML = '<div class="empty-state"><div class="big">⚠</div>No se encontró carrera</div>';
         return;
       }
 
       MY_CAREER_ID = myCareerInfo.id;  // Guardar para usar en otras funciones
+      COMPLETED_COURSES = {};
 
       // Cargar materias ya inscritas para marcar completadas
       try {
@@ -4121,32 +4660,42 @@
         document.getElementById(`sem-tab-${sem}`)?.classList.add('active');
         document.getElementById('sem-tab-all')?.classList.remove('active');
 
-        let html = `<div style="margin-bottom:1rem;">
-          <div style="font-weight:500;margin-bottom:0.75rem;">Semestre ${sem}</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">`;
+        let html = `<div class="enrollment-semester-shell">
+          <div class="enrollment-semester-title">Semestre ${sem}</div>
+          <div class="enrollment-semester-grid">`;
 
         for (const course of courses) {
+          ENROLLMENT_COURSE_INDEX.set(Number(course.id), course);
           const isCompleted = COMPLETED_COURSES[course.id];
           const hasPrereqs = course.prerequisite_codes && course.prerequisite_codes.length > 0;
-          const preqsMet = !hasPrereqs || course.prerequisite_codes.every(code => COMPLETED_COURSES[Object.keys(COMPLETED_COURSES).find(cid => COURSES.find(c => c.id == cid)?.code === code)]);
+          const preqsMet = !hasPrereqs || course.prerequisite_codes.every(code => hasCompletedCourseCode(code));
           const isBlocked = hasPrereqs && !preqsMet;
           const isSelected = ENROLLMENT_CART[course.id];
+          const statusText = isCompleted ? '✓ Cursado' : isBlocked ? 'Bloqueado' : isSelected ? 'Clase elegida' : 'Disponible';
+          const statusClass = isCompleted ? 'completed' : isBlocked ? 'blocked' : isSelected ? 'selected' : 'available';
+          const selectedSection = isSelected?.sectionLabel
+            ? `<div class="enrollment-selected-section">Clase elegida: ${isSelected.sectionLabel}</div>`
+            : '';
 
           html += `
-            <div style="padding:1rem;border:1px solid ${isSelected ? 'var(--accent)' : 'var(--border)'};border-radius:6px;background:${isSelected ? 'rgba(var(--accent-rgb),0.05)' : 'var(--surface2)'};">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
-                <div style="font-weight:500;color:${isBlocked ? 'var(--danger)' : 'var(--fg)'};">${course.code}</div>
-                <span style="font-size:0.75rem;padding:0.2rem 0.5rem;border-radius:3px;background:${isCompleted ? '#16a34a' : isBlocked ? '#dc2626' : 'var(--bg)'};color:${isCompleted || isBlocked ? '#fff' : 'inherit'};font-weight:${isCompleted || isBlocked ? '600' : 'normal'};">${isCompleted ? '✓ Cursado' : isBlocked ? '🔒 Bloqueado' : isSelected ? '✓ Selec' : 'Disponible'}</span>
+            <div class="enrollment-course-card ${isSelected ? 'is-selected' : ''} ${isBlocked ? 'is-blocked' : ''}">
+              <div class="enrollment-course-head">
+                <div class="enrollment-course-code">${course.code}</div>
+                <span class="enrollment-status ${statusClass}">${statusText}</span>
               </div>
-              <div style="font-size:0.9rem;margin-bottom:0.3rem;">${course.name}</div>
-              <div style="display:flex;gap:0.5rem;font-size:0.75rem;color:var(--muted);margin-bottom:0.75rem;">
+              <div class="enrollment-course-name">${course.name}</div>
+              <div class="enrollment-course-meta">
                 <span>💳 ${course.credits} créditos</span>
-                ${isBlocked ? `<span title="${course.prerequisite_codes.join(', ')}">📋 Requiere: ${course.prerequisite_codes.join(', ')}</span>` : ''}
+                ${isBlocked ? `<span class="enrollment-prereq" title="${course.prerequisite_codes.join(', ')}">Requiere: ${course.prerequisite_codes.join(', ')}</span>` : ''}
               </div>
+              ${selectedSection}
               ${!isCompleted ? `
-                <button class="btn btn-sm ${isSelected ? 'btn-accent' : 'btn-secondary'}" onclick="selectCourseForEnrollment(${course.id}, '${course.code}', '${course.name.replace(/'/g, "\\'")}', ${course.credits})" ${isBlocked ? 'disabled' : ''}>
-                  ${isSelected ? '✓ Seleccionado' : 'Seleccionar'}
-                </button>
+                <div class="enrollment-course-actions">
+                  <button class="btn btn-sm ${isSelected ? 'btn-accent' : 'btn-secondary'} enrollment-open-sections" data-course-id="${course.id}" ${isBlocked ? 'disabled' : ''}>
+                    ${isSelected ? 'Cambiar clase' : 'Ver / elegir clase'}
+                  </button>
+                </div>
+                <div id="course-sections-inline-${course.id}" class="enrollment-inline-sections" style="display:none;"></div>
               ` : `<button class="btn btn-sm btn-secondary" disabled>Ya cursado</button>`}
             </div>
           `;
@@ -4160,15 +4709,24 @@
       }
     }
 
-    function selectCourseForEnrollment(courseId, code, name, credits) {
-      const costPerCredit = 145000;  // TODO: obtener de la carrera
-      if (ENROLLMENT_CART[courseId]) {
-        delete ENROLLMENT_CART[courseId];
-      } else {
-        ENROLLMENT_CART[courseId] = { courseId, code, name, credits, cost: credits * costPerCredit, sectionId: null };
+    async function selectCourseForEnrollmentById(courseId) {
+      return toggleCourseSectionsInline(Number(courseId));
+    }
+
+    async function selectCourseForEnrollment(courseId, code, name, credits) {
+      try {
+        const courseMeta = ENROLLMENT_COURSE_INDEX.get(Number(courseId)) || {};
+        await openCourseSectionsModal(courseId, code, name, credits, courseMeta);
+      } catch (error) {
+        console.error(error);
+        const tbody = document.getElementById('modal-sections-tbody');
+        const modal = document.getElementById('modal-course-sections');
+        if (tbody) {
+          const isTimeout = error?.name === 'AbortError';
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--danger);">${isTimeout ? 'La consulta de clases tardó demasiado. Verifica que academic_service esté activo.' : 'No se pudieron cargar las clases disponibles.'}</td></tr>`;
+        }
+        if (modal) modal.style.display = 'flex';
       }
-      updateEnrollmentCart();
-      loadEnrollmentSemester(parseInt(document.querySelector('[id^="sem-tab-"].active')?.id.split('-')[2] || '1'));
     }
 
     function updateEnrollmentCart() {
@@ -4188,7 +4746,7 @@
       // Prerequisitos no cumplidos
       for (const c of cart) {
         if (c.prerequisite_codes && c.prerequisite_codes.length > 0) {
-          const faltan = c.prerequisite_codes.filter(code => !Object.values(COMPLETED_COURSES).includes(code));
+          const faltan = c.prerequisite_codes.filter(code => !hasCompletedCourseCode(code));
           if (faltan.length > 0) warnings.push(`La materia ${c.code} requiere: ${faltan.join(', ')}`);
         }
       }
@@ -4227,7 +4785,8 @@
         <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem;background:var(--bg);border-radius:4px;margin-bottom:0.25rem;">
           <div style="flex:1;">
             <div style="font-weight:500;font-size:0.9rem;">${c.code} - ${c.name}</div>
-            <div style="font-size:0.75rem;color:var(--muted);">${c.credits} créditos</div>
+            <div style="font-size:0.75rem;color:var(--muted);">${c.credits} créditos · ${c.sectionLabel || 'Sin clase elegida'}</div>
+            <div style="font-size:0.75rem;color:var(--muted);">${c.day_of_week && c.start_time && c.end_time ? `${c.day_of_week} ${formatRange(c.start_time, c.end_time)}` : 'Horario por definir'}${c.classroom ? ` · ${c.classroom}` : ''}</div>
           </div>
           <button class="btn btn-sm btn-danger" title="Quitar" onclick="deleteEnrollmentItem(${c.courseId})">✕</button>
         </div>
@@ -4256,10 +4815,572 @@
       updateEnrollmentCart();
     }
 
+    function loadPendingEnrollmentOrders() {
+      try {
+        const rawHistory = localStorage.getItem(PENDING_ENROLLMENT_HISTORY_KEY);
+        if (rawHistory) {
+          const parsed = JSON.parse(rawHistory);
+          if (Array.isArray(parsed)) {
+            return parsed
+              .filter(item => item && Array.isArray(item.items) && item.items.length)
+              .sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+          }
+        }
+
+        // Compatibilidad con versión anterior (un único pedido)
+        const rawSingle = localStorage.getItem(PENDING_ENROLLMENT_STORAGE_KEY);
+        if (rawSingle) {
+          const single = JSON.parse(rawSingle);
+          if (single && Array.isArray(single.items) && single.items.length) {
+            localStorage.setItem(PENDING_ENROLLMENT_HISTORY_KEY, JSON.stringify([single]));
+            return [single];
+          }
+        }
+      } catch {
+        // ignorar errores de parseo
+      }
+      return [];
+    }
+
+    function savePendingEnrollmentOrders(orders) {
+      const normalized = (orders || [])
+        .filter(item => item && Array.isArray(item.items) && item.items.length)
+        .sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+      localStorage.setItem(PENDING_ENROLLMENT_HISTORY_KEY, JSON.stringify(normalized));
+      if (normalized.length > 0) {
+        localStorage.setItem(PENDING_ENROLLMENT_STORAGE_KEY, JSON.stringify(normalized[normalized.length - 1]));
+      } else {
+        localStorage.removeItem(PENDING_ENROLLMENT_STORAGE_KEY);
+      }
+    }
+
+    function loadPendingEnrollmentOrder() {
+      if (PENDING_ENROLLMENT_ORDER) return PENDING_ENROLLMENT_ORDER;
+      const orders = loadPendingEnrollmentOrders();
+      if (!orders.length) return null;
+
+      const activeInvoiceId = localStorage.getItem(ACTIVE_PENDING_INVOICE_KEY);
+      const fromActive = activeInvoiceId ? orders.find(o => o.invoiceId === activeInvoiceId) : null;
+      const fallback = fromActive || orders[orders.length - 1];
+      if (fallback?.invoiceId) {
+        localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, fallback.invoiceId);
+      }
+      PENDING_ENROLLMENT_ORDER = fallback || null;
+      return PENDING_ENROLLMENT_ORDER;
+    }
+
+    function savePendingEnrollmentOrder(order) {
+      const orders = loadPendingEnrollmentOrders();
+      const idx = orders.findIndex(o => o.invoiceId === order.invoiceId);
+      if (idx >= 0) orders[idx] = order;
+      else orders.push(order);
+      savePendingEnrollmentOrders(orders);
+
+      PENDING_ENROLLMENT_ORDER = order;
+      if (order?.invoiceId) {
+        localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, order.invoiceId);
+      }
+    }
+
+    function clearPendingEnrollmentOrder(invoiceId = null) {
+      const orders = loadPendingEnrollmentOrders();
+      const activeInvoiceId = invoiceId || localStorage.getItem(ACTIVE_PENDING_INVOICE_KEY);
+      const next = orders.filter(o => o.invoiceId !== activeInvoiceId);
+      savePendingEnrollmentOrders(next);
+      PENDING_ENROLLMENT_ORDER = null;
+
+      if (next.length > 0) {
+        const lastId = next[next.length - 1].invoiceId;
+        localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, lastId);
+      } else {
+        localStorage.removeItem(ACTIVE_PENDING_INVOICE_KEY);
+      }
+    }
+
+    function clearAllPendingEnrollmentLocalState() {
+      const confirmed = window.confirm('Esto limpiara la factura pendiente local de este navegador. Deseas continuar?');
+      if (!confirmed) return;
+
+      localStorage.removeItem(PENDING_ENROLLMENT_HISTORY_KEY);
+      localStorage.removeItem(PENDING_ENROLLMENT_STORAGE_KEY);
+      localStorage.removeItem(ACTIVE_PENDING_INVOICE_KEY);
+      setActiveEnrollmentPaymentReference(null);
+      PENDING_ENROLLMENT_ORDER = null;
+
+      const resultArea = document.getElementById('pay-result-area');
+      if (resultArea) resultArea.innerHTML = '';
+      prefillPaymentFromPendingEnrollment();
+      loadPaymentHistory();
+      showToast('Factura pendiente local eliminada', 'ok');
+    }
+
+    function switchPendingEnrollmentOrder(invoiceId) {
+      const orders = loadPendingEnrollmentOrders();
+      const selected = orders.find(o => o.invoiceId === invoiceId);
+      if (!selected) return;
+      PENDING_ENROLLMENT_ORDER = selected;
+      localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, invoiceId);
+      if (selected.payment_reference) {
+        setActiveEnrollmentPaymentReference(selected.payment_reference);
+      } else {
+        // Evita mezclar una factura nueva con una referencia vieja de otro pedido.
+        setActiveEnrollmentPaymentReference(null);
+      }
+      prefillPaymentFromPendingEnrollment();
+    }
+
+    function extractInvoiceIdFromConcept(concept) {
+      const raw = String(concept || '');
+      const match = raw.match(/FAC-MAT-[0-9]+/i);
+      return match ? match[0].toUpperCase() : null;
+    }
+
+    function normalizePaymentStatus(status) {
+      const raw = String(status || '').trim().toLowerCase();
+      const map = {
+        approved: 'aprobado',
+        paid: 'aprobado',
+        aprobado: 'aprobado',
+        pending: 'pendiente',
+        pending_payment: 'pendiente',
+        awaiting_payment: 'pendiente',
+        pendiente: 'pendiente',
+        rejected: 'rechazado',
+        rechazado: 'rechazado',
+        expired: 'expirado',
+        expirado: 'expirado',
+      };
+      return map[raw] || raw;
+    }
+
+    function buildWompiCheckoutUrlFromLinkId(linkId) {
+      const id = String(linkId || '').trim();
+      if (!id) return null;
+      return `https://checkout.wompi.co/l/${id}`;
+    }
+
+    function getPendingEnrollmentPaymentsFromHistory() {
+      const pendingRows = (PAYMENT_HISTORY_CACHE || [])
+        .filter(p => normalizePaymentStatus(p?.status) === 'pendiente')
+        .filter(p => /fac-mat-/i.test(String(p?.concept || '')))
+        .map(p => ({
+          reference: p.reference,
+          concept: p.concept || '',
+          invoiceId: extractInvoiceIdFromConcept(p.concept) || `FAC-HIST-${String(p.reference || '').slice(-6)}`,
+          amount: Number(p.amount || 0),
+          checkout_url: (isValidWompiCheckoutUrl(p.checkout_url) ? p.checkout_url : (buildWompiCheckoutUrlFromLinkId(p.wompi_payment_link_id) || null)),
+          wompi_link_id: p.wompi_payment_link_id || null,
+          created_at: p.created_at || null,
+          status: p.status || 'pendiente',
+        }));
+
+      // Una sola opcion por factura: conservar la referencia mas reciente.
+      const latestByInvoice = new Map();
+      pendingRows.forEach(row => {
+        const key = String(row.invoiceId || row.reference || '');
+        const prev = latestByInvoice.get(key);
+        const prevTs = prev?.created_at ? new Date(prev.created_at).getTime() : 0;
+        const curTs = row?.created_at ? new Date(row.created_at).getTime() : 0;
+        if (!prev || curTs >= prevTs) {
+          latestByInvoice.set(key, row);
+        }
+      });
+
+      return Array.from(latestByInvoice.values())
+        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+    }
+
+    function getActiveEnrollmentPaymentReference() {
+      return localStorage.getItem(ACTIVE_PENDING_PAYMENT_REF_KEY) || null;
+    }
+
+    function setActiveEnrollmentPaymentReference(reference) {
+      if (reference) {
+        localStorage.setItem(ACTIVE_PENDING_PAYMENT_REF_KEY, reference);
+      } else {
+        localStorage.removeItem(ACTIVE_PENDING_PAYMENT_REF_KEY);
+      }
+    }
+
+    function switchPendingEnrollmentPayment(reference) {
+      setActiveEnrollmentPaymentReference(reference || null);
+      const byRef = findPendingEnrollmentOrderByReference(reference);
+      if (byRef?.invoiceId) {
+        localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, byRef.invoiceId);
+        PENDING_ENROLLMENT_ORDER = byRef;
+      } else {
+        // Si el pago viene solo del historial, limpiar pedido local activo para no mezclar vistas.
+        PENDING_ENROLLMENT_ORDER = null;
+      }
+      prefillPaymentFromPendingEnrollment();
+    }
+
+    function findPendingEnrollmentOrderByReference(reference) {
+      const target = String(reference || '').trim();
+      if (!target) return null;
+      return loadPendingEnrollmentOrders().find(o => String(o.payment_reference || '') === target) || null;
+    }
+
+    function buildEnrollmentInvoice(cart) {
+      const now = new Date();
+      const stamp = now.toISOString().replace(/[-:TZ.]/g, '').slice(0, 14);
+      const invoiceId = `FAC-MAT-${stamp}`;
+      const totalCredits = cart.reduce((sum, c) => sum + (Number(c.credits) || 0), 0);
+      const totalCost = cart.reduce((sum, c) => sum + (Number(c.cost) || 0), 0);
+      return {
+        invoiceId,
+        createdAt: now.toISOString(),
+        status: 'pending_payment',
+        totalCredits,
+        totalCost,
+        concept: `Matricula ${invoiceId}`,
+        items: cart.map(c => ({
+          course_id: Number(c.courseId),
+          section_id: c.sectionId == null ? null : Number(c.sectionId),
+          code: c.code,
+          name: c.name,
+          credits: Number(c.credits) || 0,
+          sectionLabel: c.sectionLabel || null,
+          cost: Number(c.cost) || 0,
+        })),
+      };
+    }
+
+    async function ensureJsPdfLoaded() {
+      if (window.jspdf?.jsPDF) return true;
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+      return !!window.jspdf?.jsPDF;
+    }
+
+    async function downloadEnrollmentInvoicePdf(orderParam = null, paymentRef = null, statusLabel = 'PENDIENTE') {
+      const order = orderParam || loadPendingEnrollmentOrder();
+      if (!order) {
+        showToast('No hay factura disponible para descargar', 'warn');
+        return;
+      }
+
+      try {
+        await ensureJsPdfLoaded();
+        const jsPDFCtor = window.jspdf?.jsPDF;
+        if (!jsPDFCtor) throw new Error('No se pudo cargar el generador PDF');
+
+        if (!MY_STUDENT && USER_ROLE === 'estudiante') {
+          await loadMyStudent();
+        }
+
+        const doc = new jsPDFCtor({ unit: 'pt', format: 'a4' });
+        const left = 44;
+        let y = 52;
+        const line = (text, size = 11, weight = 'normal') => {
+          doc.setFont('helvetica', weight);
+          doc.setFontSize(size);
+          doc.text(String(text), left, y);
+          y += size + 8;
+        };
+
+        line('SGAU - Factura de Matricula', 18, 'bold');
+        line(`Factura: ${order.invoiceId}`, 11, 'bold');
+        line(`Fecha: ${new Date(order.createdAt || Date.now()).toLocaleString('es-CO')}`);
+        line(`Estado: ${statusLabel}`);
+        line(`Estudiante: ${MY_STUDENT?.nombre || USER_EMAIL || 'N/A'}`);
+        line(`Referencia pago: ${paymentRef || order.payment_reference || 'Pendiente'}`);
+        y += 4;
+
+        doc.setDrawColor(180);
+        doc.line(left, y, 560, y);
+        y += 18;
+        line('Detalle de materias', 12, 'bold');
+
+        order.items.forEach((item, idx) => {
+          const itemText = `${idx + 1}. ${item.code} - ${item.name} | Clase: ${item.sectionLabel || '-'} | Creditos: ${item.credits} | Valor: $${(item.cost || 0).toLocaleString('es-CO')}`;
+          const wrapped = doc.splitTextToSize(itemText, 500);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(10);
+          doc.text(wrapped, left, y);
+          y += wrapped.length * 13 + 2;
+          if (y > 760) {
+            doc.addPage();
+            y = 52;
+          }
+        });
+
+        y += 4;
+        doc.line(left, y, 560, y);
+        y += 20;
+        line(`Total creditos: ${order.totalCredits}`, 12, 'bold');
+        line(`Total pagado: $${(order.totalCost || 0).toLocaleString('es-CO')} COP`, 14, 'bold');
+        line('Documento generado automaticamente por SGAU.', 9);
+
+        doc.save(`${order.invoiceId}.pdf`);
+        showToast('Factura PDF descargada', 'ok');
+      } catch (error) {
+        showToast(`No se pudo generar el PDF: ${error.message || error}`, 'err');
+      }
+    }
+
+    function isValidWompiCheckoutUrl(url) {
+      return typeof url === 'string' && /^https:\/\/checkout\.wompi\.co\/l\//i.test(url.trim());
+    }
+
+    async function resolveEnrollmentCheckoutUrl(referenceOverride = null, checkoutUrlOverride = null) {
+      if (isValidWompiCheckoutUrl(checkoutUrlOverride)) {
+        return checkoutUrlOverride;
+      }
+
+      const order = loadPendingEnrollmentOrder();
+      const pendingHistory = getPendingEnrollmentPaymentsFromHistory();
+      const activeRef = referenceOverride || getActiveEnrollmentPaymentReference() || order?.payment_reference || null;
+      const selectedHistory = activeRef ? pendingHistory.find(p => p.reference === activeRef) : null;
+      const selectedFromCache = activeRef
+        ? (PAYMENT_HISTORY_CACHE || []).find(p => String(p?.reference || '') === String(activeRef))
+        : null;
+
+      if (selectedHistory?.checkout_url && isValidWompiCheckoutUrl(selectedHistory.checkout_url)) {
+        return selectedHistory.checkout_url;
+      }
+
+      if (selectedFromCache?.checkout_url && isValidWompiCheckoutUrl(selectedFromCache.checkout_url)) {
+        return selectedFromCache.checkout_url;
+      }
+
+      const selectedFromCacheByLinkId = buildWompiCheckoutUrlFromLinkId(selectedFromCache?.wompi_payment_link_id);
+      if (selectedFromCacheByLinkId && isValidWompiCheckoutUrl(selectedFromCacheByLinkId)) {
+        return selectedFromCacheByLinkId;
+      }
+
+      if (order?.checkout_url && isValidWompiCheckoutUrl(order.checkout_url)) {
+        return order.checkout_url;
+      }
+
+      if (!activeRef) return null;
+
+      const res = await fetch(`${API_BASE}/payments/status/${encodeURIComponent(activeRef)}`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) return null;
+
+      const data = await res.json().catch(() => ({}));
+      const checkoutUrl = data.checkout_url || null;
+      if (isValidWompiCheckoutUrl(checkoutUrl)) {
+        if (order && String(order.payment_reference || '') === String(activeRef)) {
+          order.checkout_url = checkoutUrl;
+          savePendingEnrollmentOrder(order);
+        }
+        return checkoutUrl;
+      }
+      return null;
+    }
+
+    async function openEnrollmentCheckout(referenceOverride = null, checkoutUrlOverride = null) {
+      const checkoutUrl = await resolveEnrollmentCheckoutUrl(referenceOverride, checkoutUrlOverride);
+      if (!checkoutUrl) {
+        showToast('No hay checkout válido para esta factura. Pulsa "Pagar ahora" para generar un checkout real.', 'warn');
+        return;
+      }
+      window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    function prefillPaymentFromPendingEnrollment() {
+      const order = loadPendingEnrollmentOrder();
+      const pendingHistory = getPendingEnrollmentPaymentsFromHistory();
+      const activeRefStored = getActiveEnrollmentPaymentReference();
+
+      // Si hay pedido activo, no reutilizar una referencia vieja cuando el pedido aun no tiene una propia.
+      const activeRef = order
+        ? (order.payment_reference || null)
+        : (activeRefStored || null);
+      let selectedHistory = activeRef
+        ? pendingHistory.find(p => String(p.reference) === String(activeRef))
+        : null;
+
+      // Si hay pedido activo sin referencia, intentar casar por invoiceId.
+      if (!selectedHistory && order?.invoiceId) {
+        selectedHistory = pendingHistory.find(p => String(p.invoiceId || '') === String(order.invoiceId)) || null;
+      }
+
+      // Solo cuando no hay pedido activo, tomar el primero del historial.
+      if (!selectedHistory && !order) {
+        selectedHistory = pendingHistory[0] || null;
+      }
+
+      if (selectedHistory?.reference) {
+        setActiveEnrollmentPaymentReference(selectedHistory.reference);
+      }
+
+      const orderView = order || (selectedHistory ? {
+        invoiceId: selectedHistory.invoiceId,
+        createdAt: selectedHistory.created_at,
+        status: 'awaiting_payment',
+        totalCredits: 0,
+        totalCost: Number(selectedHistory.amount || 0),
+        concept: selectedHistory.concept,
+        items: [],
+        payment_reference: selectedHistory.reference,
+        checkout_url: selectedHistory.checkout_url,
+      } : null);
+
+      const resultArea = document.getElementById('pay-result-area');
+      if (!orderView) {
+        if (resultArea) resultArea.innerHTML = '';
+        return;
+      }
+
+      const itemNames = Array.isArray(orderView.items)
+        ? orderView.items
+            .map(item => String(item?.name || item?.code || '').trim())
+            .filter(Boolean)
+        : [];
+      const itemNamesLabel = itemNames.length ? itemNames.join(', ') : '-';
+
+      const amountInput = document.getElementById('pay-amount');
+      if (amountInput) amountInput.value = String((selectedHistory?.amount ?? orderView.totalCost) || 0);
+
+      const conceptSelect = document.getElementById('pay-concept');
+      if (conceptSelect) {
+        const conceptValue = selectedHistory?.concept || orderView.concept;
+        const hasOption = Array.from(conceptSelect.options).some(opt => opt.value === conceptValue);
+        if (!hasOption) {
+          const opt = document.createElement('option');
+          opt.value = conceptValue;
+          opt.textContent = conceptValue;
+          conceptSelect.appendChild(opt);
+        }
+        conceptSelect.value = conceptValue;
+      }
+
+      if (resultArea) {
+        const activeReference = selectedHistory?.reference || orderView.payment_reference || null;
+        const verifyBtn = activeReference
+          ? `<button class="btn btn-secondary btn-sm" onclick="verifyEnrollmentCheckoutPayment('${activeReference}')">Verificar pago</button>`
+          : '';
+        const openBtn = activeReference
+          ? `<button class="btn btn-primary btn-sm" onclick="openEnrollmentCheckout('${activeReference}')">Abrir checkout</button>`
+          : '';
+        resultArea.innerHTML = `
+          <div style="background:rgba(29,78,216,.08);border:1px solid rgba(29,78,216,.2);border-radius:10px;padding:.8rem;">
+            ${pendingHistory.length > 1 ? `
+            <div style="margin-bottom:.55rem;">
+              <label style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:.25rem;">Seleccionar factura pendiente</label>
+              <select style="width:100%;max-width:520px;" onchange="switchPendingEnrollmentPayment(this.value)">
+                ${pendingHistory.map(p => `<option value="${p.reference}" ${String(p.reference) === String(activeReference) ? 'selected' : ''}>${p.invoiceId} · $${(p.amount || 0).toLocaleString('es-CO')} · ${new Date(p.created_at || Date.now()).toLocaleDateString('es-CO')}</option>`).join('')}
+              </select>
+            </div>` : ''}
+            <div style="font-weight:600;color:var(--accent2);">Factura pendiente: ${orderView.invoiceId}</div>
+            <div style="font-size:.85rem;color:var(--muted);margin-top:.2rem;">${orderView.items.length || '-'} materias · ${orderView.totalCredits || '-'} creditos · $${(selectedHistory?.amount ?? orderView.totalCost ?? 0).toLocaleString('es-CO')} COP</div>
+            <div style="font-size:.82rem;color:var(--muted);margin-top:.2rem;">Materia(s): ${itemNamesLabel}</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-top:.25rem;">Despues del pago aprobado, la matricula se activa automaticamente.</div>
+            <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.6rem;">
+              <button class="btn btn-secondary btn-sm" onclick="downloadEnrollmentInvoicePdf()">Descargar PDF</button>
+              ${openBtn}
+              ${verifyBtn}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function hasTimeOverlap(startA, endA, startB, endB) {
+      return startA < endB && startB < endA;
+    }
+
+    function normalizeDayToken(day) {
+      return normalizeText(day || '').replace(/\s+/g, '');
+    }
+
+    async function resolveEnrollmentScheduleSlot(enrollment) {
+      const course = await fetchCourse(enrollment.course_id);
+      let day = null;
+      let start = null;
+      let end = null;
+
+      try {
+        const sessions = await fetchCourseSessions(enrollment.course_id);
+        const selectedSession = (sessions || []).find(s => Number(s.id) === Number(enrollment.section_id));
+        if (selectedSession?.day_of_week && selectedSession?.start_time && selectedSession?.end_time) {
+          day = selectedSession.day_of_week;
+          start = selectedSession.start_time;
+          end = selectedSession.end_time;
+        }
+      } catch {
+        // fallback a horario del curso
+      }
+
+      if ((!day || !start || !end) && course?.day_of_week && course?.start_time && course?.end_time) {
+        day = course.day_of_week;
+        start = course.start_time;
+        end = course.end_time;
+      }
+
+      return {
+        course_id: enrollment.course_id,
+        code: course?.code || `CUR-${enrollment.course_id}`,
+        day_of_week: day,
+        start_time: start,
+        end_time: end,
+      };
+    }
+
+    async function validateEnrollmentCartBeforePayment(cart) {
+      const warnings = [];
+
+      const res = await fetch(`${API_BASE}/enrollments/me`, { headers: getAuthHeaders() });
+      if (!res.ok) {
+        return {
+          ok: false,
+          warnings: ['No se pudo validar la matrícula con tus materias actuales. Intenta nuevamente antes de pagar.'],
+        };
+      }
+
+      const enrollments = await res.json().catch(() => []);
+      const currentEnrollments = Array.isArray(enrollments)
+        ? enrollments.filter(e => isCurrentEnrollmentStatus(e?.status))
+        : [];
+
+      const currentByCourseId = new Set(currentEnrollments.map(e => Number(e.course_id)));
+      cart.forEach(item => {
+        if (currentByCourseId.has(Number(item.courseId))) {
+          warnings.push(`Ya tienes inscrita la materia ${item.code}.`);
+        }
+      });
+
+      const currentSlots = await Promise.all(currentEnrollments.map(resolveEnrollmentScheduleSlot));
+      cart.forEach(item => {
+        const cartDay = normalizeDayToken(item.day_of_week);
+        const cartStart = timeToMinutes(item.start_time);
+        const cartEnd = timeToMinutes(item.end_time);
+        if (!cartDay || cartStart == null || cartEnd == null) return;
+
+        currentSlots.forEach(slot => {
+          const slotDay = normalizeDayToken(slot.day_of_week);
+          const slotStart = timeToMinutes(slot.start_time);
+          const slotEnd = timeToMinutes(slot.end_time);
+          if (!slotDay || slotStart == null || slotEnd == null) return;
+          if (cartDay !== slotDay) return;
+          if (!hasTimeOverlap(cartStart, cartEnd, slotStart, slotEnd)) return;
+
+          warnings.push(
+            `Conflicto de horario: '${item.code}' (${item.day_of_week} ${item.start_time}-${item.end_time}) se cruza con '${slot.code}' (${slot.day_of_week} ${slot.start_time}-${slot.end_time}).`
+          );
+        });
+      });
+
+      return { ok: true, warnings };
+    }
+
     async function submitEnrollment() {
       const cart = Object.values(ENROLLMENT_CART);
       if (cart.length === 0) {
         showToast('⚠ Selecciona al menos un curso', 'warn');
+        return;
+      }
+      if (cart.some(c => c.requiresConcreteSection && !c.sectionId)) {
+        showToast('⚠ Debes elegir una clase para cada materia antes de confirmar', 'warn');
         return;
       }
       // Validación previa
@@ -4269,7 +5390,7 @@
       if (repeated.length > 0) warnings.push('Hay materias repetidas en el carrito.');
       for (const c of cart) {
         if (c.prerequisite_codes && c.prerequisite_codes.length > 0) {
-          const faltan = c.prerequisite_codes.filter(code => !Object.values(COMPLETED_COURSES).includes(code));
+          const faltan = c.prerequisite_codes.filter(code => !hasCompletedCourseCode(code));
           if (faltan.length > 0) warnings.push(`La materia ${c.code} requiere: ${faltan.join(', ')}`);
         }
       }
@@ -4290,6 +5411,15 @@
           }
         }
       }
+
+      // Validación fuerte contra materias actualmente inscritas antes de permitir pago.
+      const externalValidation = await validateEnrollmentCartBeforePayment(cart);
+      if (!externalValidation.ok) {
+        showToast(`⚠ ${externalValidation.warnings.join('\n')}`, 'warn');
+        return;
+      }
+      warnings.push(...externalValidation.warnings);
+
       if (warnings.length > 0) {
         showToast('⚠ Corrige los problemas antes de confirmar:\n' + warnings.join('\n'), 'warn');
         updateEnrollmentCart();
@@ -4299,82 +5429,120 @@
       // Mostrar modal de pre-factura/resumen
       showEnrollmentSummaryModal(cart);
       return;
-// Modal de resumen/pre-factura matrícula
-function showEnrollmentSummaryModal(cart) {
-  let html = `<div style='font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;'>Resumen de Matrícula</div>`;
-  html += `<div style='max-height:200px;overflow-y:auto;margin-bottom:1rem;'>`;
-  html += `<table style='width:100%;font-size:0.95rem;'>`;
-  html += `<thead><tr><th style='text-align:left;'>Código</th><th style='text-align:left;'>Materia</th><th>Créditos</th><th>Costo</th></tr></thead><tbody>`;
-  let totalCred = 0, totalCost = 0;
-  for (const c of cart) {
-    html += `<tr><td>${c.code}</td><td>${c.name}</td><td style='text-align:center;'>${c.credits}</td><td style='text-align:right;'>$${c.cost.toLocaleString('es-CO')}</td></tr>`;
-    totalCred += c.credits;
-    totalCost += c.cost;
-  }
-  html += `</tbody></table></div>`;
-  html += `<div style='font-weight:500;margin-bottom:0.5rem;'>Total créditos: ${totalCred}</div>`;
-  html += `<div style='font-weight:600;font-size:1.2rem;margin-bottom:1rem;'>Total a pagar: $${totalCost.toLocaleString('es-CO')}</div>`;
-  html += `<div style='color:var(--muted);font-size:0.95rem;margin-bottom:1rem;'>La matrícula solo se activa tras el pago exitoso.</div>`;
-  html += `<div style='display:flex;gap:1rem;justify-content:flex-end;'><button class='btn btn-secondary' onclick='closeModal()'>Cancelar</button><button class='btn btn-primary' onclick='proceedEnrollmentPayment()'>Proceder a Pago</button></div>`;
-  showModal(html);
-}
+    }
 
-function showModal(html) {
-  let modal = document.getElementById('generic-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'generic-modal';
-    modal.style = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0008;z-index:9999;display:flex;align-items:center;justify-content:center;';
-    modal.innerHTML = `<div id='generic-modal-content' style='background:#fff;padding:2rem 2.5rem;border-radius:10px;max-width:95vw;max-height:90vh;overflow:auto;box-shadow:0 8px 32px #0003;'></div>`;
-    document.body.appendChild(modal);
-    modal.onclick = function(e){ if(e.target===modal) closeModal(); };
-  }
-  document.getElementById('generic-modal-content').innerHTML = html;
-  modal.style.display = 'flex';
-}
+    // Modal de resumen/pre-factura matrícula
+    function showEnrollmentSummaryModal(cart) {
+      const previewInvoice = buildEnrollmentInvoice(cart);
+      window.__ENROLLMENT_INVOICE_PREVIEW = previewInvoice;
+      let html = `<div style='font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;'>Resumen de Matrícula</div>`;
+      html += `<div style='max-height:200px;overflow-y:auto;margin-bottom:1rem;'>`;
+      html += `<table style='width:100%;font-size:0.95rem;'>`;
+      html += `<thead><tr><th style='text-align:left;'>Código</th><th style='text-align:left;'>Materia</th><th>Clase</th><th>Créditos</th><th>Costo</th></tr></thead><tbody>`;
+      let totalCred = 0;
+      let totalCost = 0;
+      for (const c of cart) {
+        html += `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.sectionLabel || '-'}</td><td style='text-align:center;'>${c.credits}</td><td style='text-align:right;'>$${c.cost.toLocaleString('es-CO')}</td></tr>`;
+        totalCred += c.credits;
+        totalCost += c.cost;
+      }
+      html += `</tbody></table></div>`;
+      html += `<div style='font-weight:500;margin-bottom:0.5rem;'>Total créditos: ${totalCred}</div>`;
+      html += `<div style='font-weight:600;font-size:1.2rem;margin-bottom:1rem;'>Total a pagar: $${totalCost.toLocaleString('es-CO')}</div>`;
+      html += `<div style='color:var(--muted);font-size:0.95rem;margin-bottom:1rem;'>Se generara una pre-factura y seras enviado a Pagos. La matricula se activa solo con pago aprobado.</div>`;
+      html += `<div style='display:flex;gap:.6rem;justify-content:flex-end;flex-wrap:wrap;'><button class='btn btn-secondary' onclick='downloadEnrollmentInvoicePdf(window.__ENROLLMENT_INVOICE_PREVIEW, null, "PENDIENTE")'>Descargar PDF</button><button class='btn btn-secondary' onclick='closeModal()'>Cancelar</button><button class='btn btn-primary' onclick='proceedEnrollmentPayment()'>Confirmar matrícula</button></div>`;
+      showModal(html);
+    }
 
-function closeModal() {
-  const modal = document.getElementById('generic-modal');
-  if (modal) modal.style.display = 'none';
-}
+    function showModal(html) {
+      let modal = document.getElementById('generic-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'generic-modal';
+        modal.style = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0008;z-index:9999;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML = `<div id='generic-modal-content' style='background:#fff;padding:2rem 2.5rem;border-radius:10px;max-width:95vw;max-height:90vh;overflow:auto;box-shadow:0 8px 32px #0003;'></div>`;
+        document.body.appendChild(modal);
+        modal.onclick = function(e) { if (e.target === modal) closeModal(); };
+      }
+      document.getElementById('generic-modal-content').innerHTML = html;
+      modal.style.display = 'flex';
+    }
 
-function proceedEnrollmentPayment() {
-  closeModal();
-  // Aquí iría la integración con el pago (WOMPI, etc.)
-  showToast('Función de pago no implementada aún. Aquí se integraría WOMPI.', 'info');
-}
+    function closeModal() {
+      const modal = document.getElementById('generic-modal');
+      if (modal) modal.style.display = 'none';
+    }
 
+    async function proceedEnrollmentPayment() {
+      closeModal();
+
+      const cart = Object.values(ENROLLMENT_CART);
       const msgEl = document.getElementById('enrollment-msg');
-      msgEl.innerHTML = '<span style="color:var(--muted);">Procesando matriculación...</span>';
+      if (!cart.length) {
+        if (msgEl) msgEl.innerHTML = `<span style="color:var(--danger);">✗ No hay materias en el carrito.</span>`;
+        return;
+      }
+
+      const invoice = buildEnrollmentInvoice(cart);
+      savePendingEnrollmentOrder(invoice);
+
+      if (msgEl) {
+        msgEl.innerHTML = `<span style="color:var(--accent2);">Factura ${invoice.invoiceId} generada. Continua en Pagos para completar la matricula.</span>`;
+      }
+
+      const payBtn = document.getElementById('nav-payment');
+      goTo('payment', payBtn);
+      setTimeout(() => prefillPaymentFromPendingEnrollment(), 120);
+      showToast(`Factura ${invoice.invoiceId} lista para pago`, 'ok');
+    }
+
+    async function finalizePendingEnrollmentAfterPayment(session) {
+      const order = loadPendingEnrollmentOrder();
+      if (!order || order.status === 'enrolled') return;
+
+      const resultArea = document.getElementById('pay-result-area');
+      if (resultArea) {
+        resultArea.innerHTML += `<div style="margin-top:.6rem;color:var(--muted);font-size:.85rem;">Activando matricula de ${order.items.length} materias...</div>`;
+      }
 
       try {
-        // TODO: Implementar endpoint bulk de matriculación
-        const enrollmentData = cart.map(c => ({
-          course_id: c.courseId,
-          section_id: c.sectionId || 1,  // TODO: obtener de modal
-          status: 'activa'
+        const items = order.items.map(item => ({
+          course_id: item.course_id,
+          section_id: item.section_id,
         }));
 
-        // Crear matriculaciones individuales usando /me (resuelve student_id desde JWT)
-        for (const item of enrollmentData) {
-          const res = await fetch(`${API_BASE}/enrollments/me`, {
-            method: 'POST',
-            headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
-            body: JSON.stringify({ course_id: item.course_id })
-          });
-          if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.detail || `Error en curso ${item.course_id}`);
-          }
+        const res = await fetch(`${API_BASE}/enrollments/me/batch`, {
+          method: 'POST',
+          headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items }),
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || 'Pago aprobado, pero no se pudo activar la matricula');
         }
+
+        const result = await res.json().catch(() => ({}));
+        order.status = 'enrolled';
+        order.payment_reference = session?.reference || session?.payment_id || session?.session_token || null;
+        order.enrolled_at = new Date().toISOString();
+        savePendingEnrollmentOrder(order);
 
         ENROLLMENT_CART = {};
         updateEnrollmentCart();
-        msgEl.innerHTML = '<span style="color:var(--accent);">✓ Matriculación exitosa</span>';
         await loadMyCurrentEnrollments();
-        setTimeout(() => msgEl.innerHTML = '', 3000);
+        await loadStudentDashboard();
+
+        clearPendingEnrollmentOrder();
+        if (resultArea) {
+          resultArea.innerHTML += `<div style="margin-top:.5rem;color:var(--accent);font-weight:600;">✓ Matricula activada (${result.created || items.length} materias)</div>`;
+        }
+        showToast('✓ Pago aprobado y matricula activada', 'ok');
       } catch (e) {
-        msgEl.innerHTML = `<span style="color:var(--danger);">✗ Error: ${e.message}</span>`;
+        if (resultArea) {
+          resultArea.innerHTML += `<div style="margin-top:.5rem;color:var(--danger);">✗ ${e.message}</div><div style="font-size:.8rem;color:var(--muted);">Tu orden queda pendiente para reintentar la activacion.</div>`;
+        }
+        showToast(e.message, 'err');
       }
     }
 
@@ -4425,6 +5593,8 @@ function proceedEnrollmentPayment() {
 
     async function buildEnrollmentDetailFromCache(enrollment) {
       const course = COURSES.find(c => c.id === enrollment.course_id);
+      const sessions = await fetchCourseSessions(enrollment.course_id);
+      const selectedSession = sessions.find(session => Number(session.id) === Number(enrollment.section_id));
       const teacher = enrollment.teacher_id ? await fetch(`${API_BASE}/academic/api/teachers/${enrollment.teacher_id}`, { headers: getAuthHeaders() }).then(r => r.ok ? r.json() : {}) : {};
       return {
         enrollment,
@@ -4432,11 +5602,13 @@ function proceedEnrollmentPayment() {
         courseLabel: course?.name || 'Curso desconocido',
         semester: course?.semester || '-',
         credits: course?.credits || 0,
-        section: enrollment.section_id || '-',
-        scheduleLabel: course?.day_of_week && course?.start_time && course?.end_time
+        section: selectedSession?.section || enrollment.section_id || '-',
+        scheduleLabel: selectedSession?.day_of_week && selectedSession?.start_time && selectedSession?.end_time
+          ? `${selectedSession.day_of_week} ${formatRange(selectedSession.start_time, selectedSession.end_time)}`
+          : course?.day_of_week && course?.start_time && course?.end_time
           ? `${course.day_of_week} ${formatRange(course.start_time, course.end_time)}`
           : (course?.schedule || 'Por definir'),
-        classroomLabel: course?.location || 'Por definir',
+        classroomLabel: selectedSession?.classroom || course?.location || 'Por definir',
         teacherLabel: teacher.name || teacher.nombre || 'Por asignar'
       };
     }
@@ -4444,6 +5616,7 @@ function proceedEnrollmentPayment() {
     async function loadMyProfile() {
       const title = document.querySelector('#sec-my-profile .section-title');
       const subtitle = document.querySelector('#sec-my-profile .section-subtitle');
+      const profileProgramField = document.getElementById('profile-program-field');
       const profileProgram = document.getElementById('profile-program');
       const profileProgramLabel = document.getElementById('profile-program-label');
       const passwordFields = document.getElementById('profile-password-fields');
@@ -4454,7 +5627,8 @@ function proceedEnrollmentPayment() {
       if (currentPasswordInput) currentPasswordInput.value = '';
       if (newPasswordInput) newPasswordInput.value = '';
       if (confirmPasswordInput) confirmPasswordInput.value = '';
-      if (profileProgram?.parentElement) profileProgram.parentElement.style.display = '';
+      if (profileProgramField) profileProgramField.style.display = '';
+      else if (profileProgram?.parentElement) profileProgram.parentElement.style.display = '';
       if (profileProgramLabel?.parentElement) profileProgramLabel.parentElement.style.display = '';
       if (passwordFields) passwordFields.style.display = 'none';
 
@@ -4480,7 +5654,8 @@ function proceedEnrollmentPayment() {
         document.getElementById('profile-nombre').value = firstName;
         document.getElementById('profile-apellido').value = lastName;
 
-        if (profileProgram?.parentElement) profileProgram.parentElement.style.display = 'none';
+        if (profileProgramField) profileProgramField.style.display = 'none';
+        else if (profileProgram?.parentElement) profileProgram.parentElement.style.display = 'none';
         if (profileProgramLabel?.parentElement) profileProgramLabel.parentElement.style.display = 'none';
         if (passwordFields) passwordFields.style.display = 'block';
         if (title) title.textContent = 'Mi Perfil Docente';
@@ -4501,7 +5676,8 @@ function proceedEnrollmentPayment() {
         const account = authData?.usuario || {};
         document.getElementById('profile-nombre').value = account.first_name || '';
         document.getElementById('profile-apellido').value = account.last_name || '';
-        if (profileProgram?.parentElement) profileProgram.parentElement.style.display = 'none';
+        if (profileProgramField) profileProgramField.style.display = 'none';
+        else if (profileProgram?.parentElement) profileProgram.parentElement.style.display = 'none';
         if (profileProgramLabel?.parentElement) profileProgramLabel.parentElement.style.display = 'none';
         if (passwordFields) passwordFields.style.display = 'block';
         if (title) title.textContent = 'Mi Perfil';
@@ -4526,6 +5702,10 @@ function proceedEnrollmentPayment() {
       if (profileProgram) {
         profileProgram.value = MY_STUDENT.program || '';
         profileProgram.disabled = USER_ROLE === 'estudiante';
+      }
+      if (USER_ROLE === 'estudiante') {
+        if (profileProgramField) profileProgramField.style.display = 'none';
+        else if (profileProgram?.parentElement) profileProgram.parentElement.style.display = 'none';
       }
       if (title) title.textContent = 'Mi Perfil';
       if (subtitle) subtitle.textContent = 'Información personal';
@@ -5386,6 +6566,7 @@ function proceedEnrollmentPayment() {
         document.getElementById('payment-student-panel').style.display = 'block';
         document.getElementById('payment-summary-cards').style.display = 'grid';
         await Promise.all([loadPaymentSummary(), loadPaymentHistory(), loadBankList()]);
+        prefillPaymentFromPendingEnrollment();
       } else if (USER_ROLE === 'admin') {
         document.getElementById('payment-admin-panel').style.display = 'block';
         await loadPaymentServiceStatus();
@@ -5434,18 +6615,30 @@ function proceedEnrollmentPayment() {
       try {
         const res = await fetch(`${API_BASE}/payments/me`, { headers: getAuthHeaders() });
         if (!res.ok) {
+          PAYMENT_HISTORY_CACHE = [];
           tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="big">📭</div>Sin historial de pagos</div></td></tr>';
           return;
         }
         const payments = await res.json();
+        PAYMENT_HISTORY_CACHE = Array.isArray(payments) ? payments : [];
+        const pendingEnrollment = getPendingEnrollmentPaymentsFromHistory();
+        if (pendingEnrollment.length > 0) {
+          const activeRef = getActiveEnrollmentPaymentReference();
+          if (!activeRef || !pendingEnrollment.some(p => String(p.reference) === String(activeRef))) {
+            setActiveEnrollmentPaymentReference(pendingEnrollment[0].reference);
+          }
+        } else {
+          setActiveEnrollmentPaymentReference(null);
+        }
         if (!Array.isArray(payments) || payments.length === 0) {
           tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="big">📭</div>Sin pagos registrados</div></td></tr>';
           return;
         }
         const statusBadge = s => {
-          const map = { aprobado: 'approved', pendiente: 'pending', rechazado: 'rejected' };
-          const cls = map[s] || 'pending';
-          return `<span class="badge badge-status-${cls}">${s || 'desconocido'}</span>`;
+          const normalized = normalizePaymentStatus(s);
+          const map = { aprobado: 'approved', pendiente: 'pending', rechazado: 'rejected', expirado: 'rejected' };
+          const cls = map[normalized] || 'pending';
+          return `<span class="badge badge-status-${cls}">${normalized || 'desconocido'}</span>`;
         };
         const fmt = n => `$${(n||0).toLocaleString('es-CO')}`;
         tbody.innerHTML = payments.map(p => `
@@ -5459,6 +6652,7 @@ function proceedEnrollmentPayment() {
           </tr>
         `).reverse().join('');
       } catch (e) {
+        PAYMENT_HISTORY_CACHE = [];
         tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="big">⚠</div>Error al cargar historial</div></td></tr>';
       }
     }
@@ -5493,6 +6687,21 @@ function proceedEnrollmentPayment() {
         concept,
         method,
       };
+
+      const pendingEnrollment = loadPendingEnrollmentOrder();
+      if (pendingEnrollment && pendingEnrollment.status !== 'enrolled') {
+        if (amount !== pendingEnrollment.totalCost) {
+          showToast(`El monto para la factura ${pendingEnrollment.invoiceId} debe ser $${pendingEnrollment.totalCost.toLocaleString('es-CO')}`, 'err');
+          return;
+        }
+        payload.concept = pendingEnrollment.concept;
+
+        const btn = document.getElementById('btn-pay-submit');
+        btn.disabled = true;
+        btn.textContent = 'Conectando checkout...';
+        await startRealEnrollmentCheckout(pendingEnrollment, studentId, btn);
+        return;
+      }
 
       if (method === 'pse' || method === 'bancolombia') {
         const bankCode = document.getElementById('pay-bank').value;
@@ -5549,6 +6758,135 @@ function proceedEnrollmentPayment() {
         showToast('✗ Error de conexión', 'err');
         btn.disabled = false;
         btn.textContent = 'Pagar ahora';
+      }
+    }
+
+    async function startRealEnrollmentCheckout(order, studentId, btn) {
+      const resultArea = document.getElementById('pay-result-area');
+      try {
+        const renderCheckoutCard = (titleText) => {
+          const checkoutForButton = (order.checkout_url && isValidWompiCheckoutUrl(order.checkout_url)) ? order.checkout_url : '';
+          if (!resultArea) return;
+          resultArea.innerHTML = `
+            <div style="background:rgba(29,78,216,.08);border:1px solid rgba(29,78,216,.22);border-radius:12px;padding:1rem;">
+              <div style="font-weight:700;color:var(--accent2);">${titleText}</div>
+              <div style="font-size:.84rem;color:var(--muted);margin-top:.25rem;">Factura: ${order.invoiceId}</div>
+              <div style="font-size:.84rem;color:var(--muted);">Referencia: ${order.payment_reference}</div>
+              <div style="font-size:.82rem;color:var(--muted);margin-top:.35rem;">En el checkout de Wompi puedes pagar con PSE o Nequi de forma real, segun disponibilidad de tu comercio.</div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.65rem;">
+                <button class="btn btn-primary btn-sm" onclick="openEnrollmentCheckout('${order.payment_reference}', '${checkoutForButton}')">Ir a pagar</button>
+                <button class="btn btn-secondary btn-sm" onclick="verifyEnrollmentCheckoutPayment('${order.payment_reference}')">Verificar pago</button>
+                <button class="btn btn-secondary btn-sm" onclick="downloadEnrollmentInvoicePdf()">Descargar PDF</button>
+              </div>
+            </div>
+          `;
+        };
+
+        // Si ya existe un checkout pendiente para esta misma factura, reutilizarlo.
+        const pendingByInvoice = getPendingEnrollmentPaymentsFromHistory()
+          .find(p => String(p.invoiceId || '') === String(order.invoiceId || ''));
+        if (pendingByInvoice?.reference) {
+          order.payment_reference = pendingByInvoice.reference;
+          order.checkout_url = pendingByInvoice.checkout_url || null;
+          order.checkout_method_hint = CURRENT_PAY_METHOD;
+          order.status = 'awaiting_payment';
+          savePendingEnrollmentOrder(order);
+          setActiveEnrollmentPaymentReference(order.payment_reference);
+          renderCheckoutCard('Checkout pendiente encontrado');
+          showToast('Ya existe un checkout pendiente para esta factura', 'warn');
+          return;
+        }
+
+        const payload = {
+          student_id: studentId,
+          amount_in_cents: Number(order.totalCost || 0) * 100,
+          customer_email: USER_EMAIL || `${studentId}@ucc.edu.co`,
+          concept: order.concept,
+          description: `Pago de ${order.items.length} materias - ${order.invoiceId}`,
+          payment_method: 'checkout',
+          academic_order_id: order.invoiceId,
+          metadata: {
+            flow: 'enrollment_real_checkout',
+            invoice_id: order.invoiceId,
+            courses: order.items.map(item => ({
+              course_id: item.course_id,
+              section_id: item.section_id,
+            })),
+          },
+        };
+
+        const res = await fetch(`${API_BASE}/payments/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok || !data?.payment?.reference) {
+          throw new Error(data?.detail || 'No se pudo crear el checkout real de pago');
+        }
+
+        order.payment_reference = data.payment.reference;
+        const checkoutFromResponse = data.checkout_url || data.payment.checkout_url || null;
+        order.checkout_url = isValidWompiCheckoutUrl(checkoutFromResponse)
+          ? checkoutFromResponse
+          : (buildWompiCheckoutUrlFromLinkId(data.wompi_link_id) || null);
+        order.checkout_method_hint = CURRENT_PAY_METHOD;
+        order.status = 'awaiting_payment';
+        savePendingEnrollmentOrder(order);
+        setActiveEnrollmentPaymentReference(order.payment_reference);
+        renderCheckoutCard('Checkout real creado');
+      } catch (error) {
+        showPaymentError(error.message || 'No se pudo iniciar checkout real');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Pagar ahora';
+      }
+    }
+
+    async function verifyEnrollmentCheckoutPayment(reference) {
+      if (!reference) {
+        showToast('No hay referencia de pago para verificar', 'warn');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/payments/status/${encodeURIComponent(reference)}`, {
+          headers: getAuthHeaders(),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data?.detail || 'No se pudo verificar el estado del pago');
+        }
+
+        const normalized = normalizePaymentStatus(data.status);
+        if (normalized === 'aprobado') {
+          const orderByRef = findPendingEnrollmentOrderByReference(reference);
+          if (orderByRef?.invoiceId) {
+            localStorage.setItem(ACTIVE_PENDING_INVOICE_KEY, orderByRef.invoiceId);
+            PENDING_ENROLLMENT_ORDER = orderByRef;
+          }
+          setActiveEnrollmentPaymentReference(reference);
+          const order = loadPendingEnrollmentOrder();
+          const pendingFromHistory = getPendingEnrollmentPaymentsFromHistory().find(p => String(p.reference) === String(reference));
+          const session = {
+            amount: order?.totalCost || pendingFromHistory?.amount || 0,
+            concept: order?.concept || pendingFromHistory?.concept || 'Matricula',
+            method: 'checkout',
+            reference,
+          };
+          showPaymentSuccess(session);
+          return;
+        }
+
+        if (normalized === 'rechazado' || normalized === 'expirado') {
+          showPaymentError(`Pago ${normalized}`);
+          return;
+        }
+
+        showToast(`Estado actual del pago: ${data.status || 'pendiente'}`, 'warn');
+      } catch (error) {
+        showPaymentError(error.message || 'Error verificando pago');
       }
     }
 
@@ -5763,6 +7101,7 @@ function proceedEnrollmentPayment() {
 
     function showPaymentSuccess(session) {
       const fmt = n => `$${(n||0).toLocaleString('es-CO')}`;
+      const reference = session.reference || session.payment_reference || session.session_token || 'N/A';
       const resultArea = document.getElementById('pay-result-area');
       resultArea.innerHTML = `
         <div style="background:rgba(79,255,176,.08);border:1px solid rgba(79,255,176,.25);border-radius:12px;padding:1.25rem;margin-top:.5rem;">
@@ -5771,11 +7110,15 @@ function proceedEnrollmentPayment() {
             <div>Monto: <strong style="color:var(--text)">${fmt(session.amount)} COP</strong></div>
             <div>Concepto: <strong style="color:var(--text)">${session.concept || '—'}</strong></div>
             <div>Método: <strong style="color:var(--text)">${(session.method||'').toUpperCase()}</strong></div>
-            <div>Referencia: <code style="color:var(--accent2);font-size:.75rem">${session.session_token?.substring(0,20).toUpperCase()}</code></div>
+            <div>Referencia: <code style="color:var(--accent2);font-size:.75rem">${reference}</code></div>
+            <div style="margin-top:.55rem;display:flex;gap:.45rem;flex-wrap:wrap;">
+              <button class="btn btn-secondary btn-sm" onclick="downloadEnrollmentInvoicePdf(null, '${reference}', 'PAGADA')">Descargar factura PDF</button>
+            </div>
           </div>
         </div>
       `;
       showToast('✓ Pago procesado exitosamente', 'ok');
+      finalizePendingEnrollmentAfterPayment(session);
       // Actualizar resumen y historial
       setTimeout(() => {
         loadPaymentSummary();
@@ -6713,16 +8056,10 @@ function proceedEnrollmentPayment() {
           </tr>
         `).join('');
 
+        populateAssignmentCourseSelect();
         populateAssignmentTeacherSelect();
 
-        onAssignTeacherChange();
-
-        const schTeacher = document.getElementById('sch-teacher');
-        if (schTeacher) {
-          schTeacher.innerHTML = `<option value="">Sin docente asignado</option>` + TEACHERS.map(t => `
-            <option value="${t.id}">${t.name || `${t.first_name || ''} ${t.last_name || ''}`.trim() || t.email}</option>
-          `).join('');
-        }
+        await loadScheduleTeachers();
       } catch (e) {
         showToast('✗ Error al cargar docentes', 'err');
       }
@@ -6876,17 +8213,71 @@ function proceedEnrollmentPayment() {
       return (value || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
-    function onAssignTeacherChange() {
+    function onAssignmentCareerChange() {
+      const courseSearchInput = document.getElementById('assign-course-search');
+      const courseSelect = document.getElementById('assign-course-select');
+      const teacherSearchInput = document.getElementById('assign-teacher-search');
+      const teacherSelect = document.getElementById('assign-teacher-select');
+
+      if (courseSearchInput) courseSearchInput.value = '';
+      if (courseSelect) courseSelect.value = '';
+      if (teacherSearchInput) teacherSearchInput.value = '';
+      if (teacherSelect) teacherSelect.value = '';
+
       populateAssignmentCourseSelect();
+      populateAssignmentTeacherSelect();
+    }
+
+    function onAssignmentCourseChange() {
+      const teacherSearchInput = document.getElementById('assign-teacher-search');
+      const teacherSelect = document.getElementById('assign-teacher-select');
+      if (teacherSearchInput) teacherSearchInput.value = '';
+      if (teacherSelect) teacherSelect.value = '';
+      populateAssignmentTeacherSelect();
     }
 
     function populateAssignmentTeacherSelect() {
       const teacherSelect = document.getElementById('assign-teacher-select');
       if (!teacherSelect) return;
 
+      const careerCode = document.getElementById('assign-course-career-filter')?.value || '';
+      const courseId = Number(document.getElementById('assign-course-select')?.value || 0);
+      const teacherSearchInput = document.getElementById('assign-teacher-search');
+      const hint = document.getElementById('assign-rule-hint');
+      const selectedCourse = COURSES.find(c => Number(c.id) === courseId);
+      const selectedCourseCareer = getCareerCodeByCourse(selectedCourse) || careerCode;
+
+      if (!careerCode) {
+        if (teacherSearchInput) {
+          teacherSearchInput.value = '';
+          teacherSearchInput.disabled = true;
+        }
+        teacherSelect.disabled = true;
+        teacherSelect.innerHTML = '<option value="">Selecciona carrera primero</option>';
+        if (hint) hint.textContent = 'Paso 1: selecciona carrera. Paso 2: elige materia. Paso 3: selecciona docente permitido.';
+        return;
+      }
+
+      if (!courseId) {
+        if (teacherSearchInput) {
+          teacherSearchInput.value = '';
+          teacherSearchInput.disabled = true;
+        }
+        teacherSelect.disabled = true;
+        teacherSelect.innerHTML = '<option value="">Selecciona materia primero</option>';
+        if (hint) hint.textContent = 'Selecciona una materia para habilitar docentes.';
+        return;
+      }
+
+      if (teacherSearchInput) teacherSearchInput.disabled = false;
+      teacherSelect.disabled = false;
+
       const search = normalizeText(document.getElementById('assign-teacher-search')?.value || '');
       const filteredTeachers = getFilteredItems(
-        TEACHERS,
+        TEACHERS.filter(t => {
+          const fixedCareerCode = getTeacherFixedCareerCode(t);
+          return !fixedCareerCode || fixedCareerCode === selectedCourseCareer;
+        }),
         search,
         t => `${t.document_id || ''} ${t.name || ''} ${t.first_name || ''} ${t.last_name || ''}`,
       );
@@ -6899,10 +8290,15 @@ function proceedEnrollmentPayment() {
         t => getTeacherDisplayLabel(t),
         true,
       );
+
+      if (hint) {
+        hint.textContent = filteredTeachers.length
+          ? 'Selecciona un docente para completar la asignación.'
+          : 'No hay docentes disponibles para la carrera y materia seleccionadas.';
+      }
     }
 
     function populateAssignmentCourseSelect() {
-      const teacherId = Number(document.getElementById('assign-teacher-select')?.value || 0);
       const courseSelect = document.getElementById('assign-course-select');
       const hint = document.getElementById('assign-rule-hint');
       const detectedCareer = document.getElementById('assign-detected-career');
@@ -6910,39 +8306,20 @@ function proceedEnrollmentPayment() {
       const courseSearchInput = document.getElementById('assign-course-search');
       if (!courseSelect) return;
 
-      const teacher = TEACHERS.find(t => Number(t.id) === teacherId);
-      const fixedCareerCode = getTeacherFixedCareerCode(teacher);
-      if (!teacherId) {
-        if (careerFilterControl) {
-          careerFilterControl.value = '';
-          careerFilterControl.disabled = true;
-        }
-        if (courseSearchInput) {
-          courseSearchInput.value = '';
-          courseSearchInput.disabled = true;
-        }
+      const selectedCareerFilter = careerFilterControl?.value || '';
+      if (!selectedCareerFilter) {
+        if (courseSearchInput) courseSearchInput.disabled = true;
         courseSelect.disabled = true;
-        courseSelect.innerHTML = '<option value="">Selecciona docente primero</option>';
+        courseSelect.innerHTML = '<option value="">Selecciona una carrera primero</option>';
         if (detectedCareer) detectedCareer.textContent = 'Carrera detectada: —';
         if (hint) {
-          hint.textContent = 'Paso 1: selecciona docente. Paso 2: se detecta la carrera. Paso 3: se muestran cursos permitidos.';
+          hint.textContent = 'Paso 1: selecciona carrera. Paso 2: elige materia. Paso 3: selecciona docente permitido.';
         }
         return;
       }
 
       if (courseSearchInput) courseSearchInput.disabled = false;
       courseSelect.disabled = false;
-
-      if (careerFilterControl) {
-        if (fixedCareerCode) {
-          careerFilterControl.value = fixedCareerCode;
-          careerFilterControl.disabled = true;
-        } else {
-          careerFilterControl.disabled = false;
-        }
-      }
-
-      const selectedCareerFilter = fixedCareerCode || (careerFilterControl?.value || '');
       const courseSearch = normalizeText(courseSearchInput?.value || '');
       const previousCourseId = courseSelect.value;
 
@@ -6974,15 +8351,13 @@ function proceedEnrollmentPayment() {
       }
 
       if (hint) {
-        if (fixedCareerCode) {
-          hint.textContent = `Carrera detectada: ${fixedCareerCode}. Solo ves cursos permitidos para este docente.`;
-        } else {
-          hint.textContent = 'Docente sin carrera fija. Puedes filtrar carrera y luego elegir curso.';
-        }
+        hint.textContent = availableCourses.length
+          ? 'Selecciona una materia para habilitar docentes.'
+          : 'No hay materias disponibles para la carrera seleccionada.';
       }
 
       if (detectedCareer) {
-        const detectedLabel = fixedCareerCode ? getCareerNameByCode(fixedCareerCode) : 'Sin carrera fija';
+        const detectedLabel = getCareerNameByCode(selectedCareerFilter);
         detectedCareer.textContent = `Carrera detectada: ${detectedLabel}`;
       }
     }
@@ -7003,29 +8378,27 @@ function proceedEnrollmentPayment() {
       const teacherFilterSearch = normalizeText(document.getElementById('assign-teacher-filter-search')?.value || '');
       const courseFilterSearch = normalizeText(document.getElementById('assign-course-filter-search')?.value || '');
 
-      const selectedTeacher = teacherFilter?.value || '';
-      const selectedCourse = courseFilter?.value || '';
       const selectedCareer = careerFilter?.value || '';
+      const selectedCourse = courseFilter?.value || '';
+      const selectedTeacher = teacherFilter?.value || '';
 
-      if (teacherFilter) {
-        const filteredTeachers = getFilteredItems(
-          TEACHERS,
-          teacherFilterSearch,
-          t => `${t.document_id || ''} ${t.name || ''} ${t.first_name || ''} ${t.last_name || ''}`,
-        );
-        fillSelectOptions(
-          teacherFilter,
-          filteredTeachers,
-          `Todos los docentes (${filteredTeachers.length})`,
-          t => t.id,
-          t => getTeacherDisplayLabel(t),
-          true,
-        );
-        if (selectedTeacher) teacherFilter.value = selectedTeacher;
+      if (careerFilter) {
+        const options = ACADEMIC_CAREERS.map(c => `<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
+        careerFilter.innerHTML = '<option value="">Todas las carreras</option>' + options;
+        if (selectedCareer && ACADEMIC_CAREERS.some(c => c.code === selectedCareer)) {
+          careerFilter.value = selectedCareer;
+        }
       }
 
+      const assignmentsByCareer = selectedCareer
+        ? assignments.filter(a => {
+            const course = COURSES.find(c => Number(c.id) === Number(a.course_id));
+            return getCareerCodeByCourse(course) === selectedCareer;
+          })
+        : [...assignments];
+
       if (courseFilter) {
-        const assignedCourseIds = [...new Set(assignments.map(a => Number(a.course_id)))];
+        const assignedCourseIds = [...new Set(assignmentsByCareer.map(a => Number(a.course_id)))];
         const assignedCourses = COURSES.filter(c => assignedCourseIds.includes(Number(c.id)));
         const filteredCourses = getFilteredItems(
           assignedCourses,
@@ -7040,13 +8413,33 @@ function proceedEnrollmentPayment() {
           c => `${c.code || `Curso ${c.id}`} — ${c.name || 'Sin nombre'}`,
           true,
         );
-        if (selectedCourse) courseFilter.value = selectedCourse;
+        if (selectedCourse && filteredCourses.some(c => String(c.id) === String(selectedCourse))) {
+          courseFilter.value = selectedCourse;
+        }
       }
 
-      if (careerFilter) {
-        const options = ACADEMIC_CAREERS.map(c => `<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
-        careerFilter.innerHTML = '<option value="">Todas las carreras</option>' + options;
-        if (selectedCareer) careerFilter.value = selectedCareer;
+      if (teacherFilter) {
+        const assignmentsByCourse = selectedCourse
+          ? assignmentsByCareer.filter(a => String(a.course_id) === String(selectedCourse))
+          : assignmentsByCareer;
+        const allowedTeacherIds = new Set(assignmentsByCourse.map(a => Number(a.teacher_id)));
+        const allowedTeachers = TEACHERS.filter(t => allowedTeacherIds.has(Number(t.id)));
+        const filteredTeachers = getFilteredItems(
+          allowedTeachers,
+          teacherFilterSearch,
+          t => `${t.document_id || ''} ${t.name || ''} ${t.first_name || ''} ${t.last_name || ''}`,
+        );
+        fillSelectOptions(
+          teacherFilter,
+          filteredTeachers,
+          `Todos los docentes (${filteredTeachers.length})`,
+          t => t.id,
+          t => getTeacherDisplayLabel(t),
+          true,
+        );
+        if (selectedTeacher && filteredTeachers.some(t => String(t.id) === String(selectedTeacher))) {
+          teacherFilter.value = selectedTeacher;
+        }
       }
     }
 
@@ -7090,6 +8483,7 @@ function proceedEnrollmentPayment() {
         updateAssignmentKpis(ASSIGNMENTS);
         populateAssignmentFilters(ASSIGNMENTS);
         populateAssignmentCourseSelect();
+        populateAssignmentTeacherSelect();
 
         if (ASSIGNMENTS.length === 0) {
           tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="big">📭</div>No hay asignaciones. Crea la primera desde el formulario superior.</div></td></tr>';
@@ -7184,10 +8578,16 @@ function proceedEnrollmentPayment() {
 
       if (teacherSearch) teacherSearch.value = '';
       if (courseSearch) courseSearch.value = '';
-      populateAssignmentTeacherSelect();
-      if (teacherSelect) teacherSelect.value = String(assignment.teacher_id);
-      onAssignTeacherChange();
+      const careerFilter = document.getElementById('assign-course-career-filter');
+      const selectedCourse = COURSES.find(c => Number(c.id) === Number(assignment.course_id));
+      const selectedCareerCode = getCareerCodeByCourse(selectedCourse);
+      if (careerFilter) {
+        careerFilter.value = selectedCareerCode || '';
+      }
+      onAssignmentCareerChange();
       if (courseSelect) courseSelect.value = String(assignment.course_id);
+      onAssignmentCourseChange();
+      if (teacherSelect) teacherSelect.value = String(assignment.teacher_id);
 
       if (banner) banner.style.display = 'block';
       if (bannerId) bannerId.textContent = `#${assignment.id}`;
@@ -7200,10 +8600,12 @@ function proceedEnrollmentPayment() {
       ASSIGNMENT_EDITING_ID = null;
       const teacherSelect = document.getElementById('assign-teacher-select');
       const courseSelect = document.getElementById('assign-course-select');
+      const careerFilter = document.getElementById('assign-course-career-filter');
       const teacherSearch = document.getElementById('assign-teacher-search');
       const courseSearch = document.getElementById('assign-course-search');
       if (teacherSelect) teacherSelect.value = '';
       if (courseSelect) courseSelect.value = '';
+      if (careerFilter) careerFilter.value = '';
       if (teacherSearch) teacherSearch.value = '';
       if (courseSearch) courseSearch.value = '';
 
@@ -7213,8 +8615,7 @@ function proceedEnrollmentPayment() {
       if (banner) banner.style.display = 'none';
       if (submitBtn) submitBtn.textContent = 'Asignar';
       if (cancelBtn) cancelBtn.style.display = 'none';
-      populateAssignmentTeacherSelect();
-      onAssignTeacherChange();
+      onAssignmentCareerChange();
     }
 
     async function assignTeacher() {
@@ -7233,8 +8634,14 @@ function proceedEnrollmentPayment() {
 
       const teacher = TEACHERS.find(t => Number(t.id) === teacherId);
       const course = COURSES.find(c => Number(c.id) === courseId);
+      const selectedCareer = document.getElementById('assign-course-career-filter')?.value || '';
       const fixedCareerCode = getTeacherFixedCareerCode(teacher);
       const courseCareerCode = getCareerCodeByCourse(course);
+
+      if (selectedCareer && courseCareerCode && selectedCareer !== courseCareerCode) {
+        showToast('✗ La materia no pertenece a la carrera seleccionada', 'err');
+        return;
+      }
 
       if (fixedCareerCode && fixedCareerCode !== courseCareerCode) {
         showToast(`✗ ${fixedCareerCode}: este docente no puede dictar materias de ${courseCareerCode || 'otra carrera'}`, 'err');
@@ -7394,7 +8801,8 @@ function proceedEnrollmentPayment() {
         showToast('✗ Error al cargar cursos', 'err');
       }
 
-      loadEnrollmentsTable();
+      ENROLLMENTS_ADMIN_PAGE = 1;
+      loadEnrollmentsTable(1);
     }
 
     async function loadCoursesForCareer(forceReload = false) {
@@ -7494,9 +8902,20 @@ function proceedEnrollmentPayment() {
       }
     }
 
-    async function loadEnrollmentsTable() {
+    function updateEnrollmentsAdminPager() {
+      const label = document.getElementById('enrollments-admin-page-label');
+      if (!label) return;
+      const from = ENROLLMENTS_ADMIN_TOTAL === 0 ? 0 : ((ENROLLMENTS_ADMIN_PAGE - 1) * ENROLLMENTS_ADMIN_LIMIT) + 1;
+      const to = Math.min(ENROLLMENTS_ADMIN_TOTAL, ENROLLMENTS_ADMIN_PAGE * ENROLLMENTS_ADMIN_LIMIT);
+      const totalPages = Math.max(1, Math.ceil(ENROLLMENTS_ADMIN_TOTAL / ENROLLMENTS_ADMIN_LIMIT));
+      label.textContent = `Página ${ENROLLMENTS_ADMIN_PAGE}/${totalPages} · ${from}-${to} de ${ENROLLMENTS_ADMIN_TOTAL}`;
+    }
+
+    async function loadEnrollmentsTable(page = ENROLLMENTS_ADMIN_PAGE) {
       try {
-        const res = await fetch(`${API_BASE}/enrollments/`, {
+        const safePage = Math.max(1, Number(page) || 1);
+        const offset = (safePage - 1) * ENROLLMENTS_ADMIN_LIMIT;
+        const res = await fetch(`${API_BASE}/enrollments/?limit=${ENROLLMENTS_ADMIN_LIMIT}&offset=${offset}`, {
           headers: getAuthHeaders(),
         });
         const tbody = document.getElementById('enrollments-admin-tbody');
@@ -7506,7 +8925,12 @@ function proceedEnrollmentPayment() {
           return;
         }
 
-        const enrollments = await res.json();
+        const payload = await res.json();
+        const enrollments = Array.isArray(payload) ? payload : (Array.isArray(payload.items) ? payload.items : []);
+        ENROLLMENTS_ADMIN_TOTAL = Array.isArray(payload) ? payload.length : Number(payload.total || 0);
+        ENROLLMENTS_ADMIN_PAGE = safePage;
+        updateEnrollmentsAdminPager();
+
         if (!Array.isArray(enrollments) || enrollments.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="big">📭</div>No hay matriculaciones</div></td></tr>';
           return;
@@ -7562,7 +8986,7 @@ function proceedEnrollmentPayment() {
 
         if (res.ok) {
           showToast('✓ Matriculación eliminada', 'ok');
-          loadEnrollmentsTable();
+          loadEnrollmentsTable(ENROLLMENTS_ADMIN_PAGE);
         } else {
           const data = await res.json().catch(() => null);
           showToast(data?.detail || '✗ Error al eliminar', 'err');
@@ -8627,6 +10051,48 @@ function proceedEnrollmentPayment() {
         sel.innerHTML = '<option value="">Error de conexión</option>';
       } finally {
         sel.disabled = false;
+      }
+
+      await loadScheduleTeachers();
+    }
+
+    async function loadScheduleTeachers() {
+      const schTeacher = document.getElementById('sch-teacher');
+      if (!schTeacher) return;
+
+      const careerId = document.getElementById('sch-career')?.value || '';
+      const courseId = document.getElementById('sch-course')?.value || '';
+
+      if (!careerId) {
+        schTeacher.innerHTML = '<option value="">Selecciona carrera primero</option>';
+        return;
+      }
+
+      const selectedCareer = (ACADEMIC_CAREERS || []).find(c => String(c.id) === String(careerId));
+      const params = new URLSearchParams();
+      if (selectedCareer?.code) params.set('career_code', selectedCareer.code);
+      if (courseId) params.set('course_id', String(courseId));
+
+      schTeacher.innerHTML = '<option value="">Cargando docentes...</option>';
+      try {
+        const response = await fetch(`${API_BASE}/academic/api/teachers/?${params.toString()}`, { headers: getAuthHeaders() });
+        if (!response.ok) {
+          schTeacher.innerHTML = '<option value="">Error cargando docentes</option>';
+          return;
+        }
+
+        const teachers = await response.json();
+        const list = Array.isArray(teachers) ? teachers : [];
+        if (!list.length) {
+          schTeacher.innerHTML = '<option value="">No hay docentes disponibles</option>';
+          return;
+        }
+
+        schTeacher.innerHTML = '<option value="">Sin docente asignado</option>' + list.map(t => `
+          <option value="${t.id}">${t.name || `${t.first_name || ''} ${t.last_name || ''}`.trim() || t.email}</option>
+        `).join('');
+      } catch (error) {
+        schTeacher.innerHTML = '<option value="">Error de conexión</option>';
       }
     }
 

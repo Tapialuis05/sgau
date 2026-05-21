@@ -2,10 +2,12 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
+from prometheus_fastapi_instrumentator import Instrumentator
 import httpx
 import os
 
 app = FastAPI(title="SGAU API Gateway", version="1.0.0")
+Instrumentator().instrument(app).expose(app, include_in_schema=False)
 
 HTML_NO_CACHE_HEADERS = {
     "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
@@ -27,13 +29,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 app.mount("/static", StaticFiles(directory=current_dir), name="static")
 
 # ─── URLs internas de microservicios (Docker) ─────────────────────────────────
-AUTH_SERVICE_URL      = os.getenv("AUTH_SERVICE_URL", "http://auth-service:8000")
-STUDENT_SERVICE_URL   = os.getenv("STUDENT_SERVICE_URL", "http://student_service:8000")
-ACADEMIC_SERVICE_URL  = os.getenv("ACADEMIC_SERVICE_URL", "http://academic_service:8000")
-ENROLLMENT_SERVICE_URL = os.getenv("ENROLLMENT_SERVICE_URL", "http://enrollment_service:8000")
-GRADES_SERVICE_URL    = os.getenv("GRADES_SERVICE_URL", "http://grades_service:8000")
-PAYMENT_SERVICE_URL   = os.getenv("PAYMENT_SERVICE_URL", "http://payment_service:8000")
-REPORTING_SERVICE_URL = os.getenv("REPORTING_SERVICE_URL", "http://reporting_service:8001")
+AUTH_SERVICE_URL      = "http://auth-service:8000"
+STUDENT_SERVICE_URL   = "http://student_service:8000"
+ACADEMIC_SERVICE_URL  = "http://academic_service:8000"
+ENROLLMENT_SERVICE_URL = "http://enrollment_service:8000"
+GRADES_SERVICE_URL = "http://grades_service:8000"
+PAYMENT_SERVICE_URL = "http://payment_service:8000"
+REPORTING_SERVICE_URL = "http://reporting_service:8001"
 
 TIMEOUT = 10.0  # segundos
 
@@ -243,7 +245,7 @@ async def payments_proxy_root(request: Request):
         methods=["GET", "POST", "PUT", "DELETE"],
         tags=["Reports"])
 async def reports_proxy(path: str, request: Request):
-    url = _with_query(f"{REPORTING_SERVICE_URL}/{path}", request)
+    url = _with_query(f"{REPORTING_SERVICE_URL}/reports/{path}", request)
     return await _proxy(
         request.method,
         url,
@@ -256,7 +258,7 @@ async def reports_proxy(path: str, request: Request):
         methods=["GET", "POST", "PUT", "DELETE"],
         tags=["Reports"])
 async def reports_proxy_root(request: Request):
-    url = _with_query(f"{REPORTING_SERVICE_URL}/", request)
+    url = _with_query(f"{REPORTING_SERVICE_URL}/reports", request)
     return await _proxy(
         request.method,
         url,

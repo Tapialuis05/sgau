@@ -9,7 +9,6 @@ from app.auth import verify_student
 from app.auth import verify_teacher
 import requests
 import os
-
 router = APIRouter()
 
 # dependencia DB

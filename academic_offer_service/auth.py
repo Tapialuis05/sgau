@@ -1,9 +1,10 @@
 from collections.abc import Callable
+import os
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 
-SECRET_KEY = "esto_ta_protegido"
+SECRET_KEY = os.environ["AUTH_SECRET_KEY"]
 ALGORITHM = "HS256"
 
 security = HTTPBearer()

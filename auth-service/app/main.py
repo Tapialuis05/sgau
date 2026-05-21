@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 from sqlalchemy import text
 from app.database import engine, Base, SessionLocal
 import app.models as models
@@ -7,6 +8,7 @@ from app.auth import hash_password
 from app.routes import router
 
 app = FastAPI(title="Auth Service")
+Instrumentator().instrument(app).expose(app, include_in_schema=False)
 
 app.add_middleware(
     CORSMiddleware,

@@ -6,3 +6,6 @@ requests
 python-dotenv
 python-jose
 python-multipart
+prometheus-fastapi-instrumentator
+pytest
+httpx

@@ -6,7 +6,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
 
 #  CONFIGURACIÓN JWT
-SECRET_KEY = os.getenv("AUTH_SECRET_KEY", "esto_ta_protegido")
+SECRET_KEY = os.environ["AUTH_SECRET_KEY"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 480  # 8 horas
 

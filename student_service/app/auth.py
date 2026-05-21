@@ -4,7 +4,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, JWTError
 import os
 
-SECRET_KEY = os.getenv("AUTH_SECRET_KEY", "esto_ta_protegido")
+SECRET_KEY = os.environ["AUTH_SECRET_KEY"]
 ALGORITHM = "HS256"
 
 security = HTTPBearer()
