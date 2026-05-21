@@ -28,7 +28,7 @@ def get_settings() -> Settings:
 
     return Settings(
         app_name=os.getenv("APP_NAME", "Payment Service"),
-        auth_secret_key=os.getenv("AUTH_SECRET_KEY", "esto_ta_protegido"),
+        auth_secret_key=os.environ["AUTH_SECRET_KEY"],
         jwt_algorithm=os.getenv("JWT_ALGORITHM", "HS256"),
         student_service_url=os.getenv("STUDENT_SERVICE_URL", "http://student_service:8000"),
         wompi_public_key=os.getenv("WOMPI_PUBLIC_KEY", ""),

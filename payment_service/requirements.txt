@@ -6,3 +6,6 @@ python-dotenv
 requests
 python-jose
 email-validator
+prometheus-fastapi-instrumentator
+pytest
+httpx
