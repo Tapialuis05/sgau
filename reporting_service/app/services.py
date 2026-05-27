@@ -66,7 +66,12 @@ def get_course_report(course_id: int, token: str) -> list:
 # ── Datos enriquecidos para exportación ────────────────────────────────────
 
 def _fetch_student_info(student_id: int, token: str) -> dict:
+    # Intentar con /students/{student_id} (funciona para admin)
     info = _safe_get(f"{STUDENTS_URL}/students/{student_id}", token)
+    if isinstance(info, dict) and info.get("id"):
+        return info
+    # Si falla, intentar con /students/me (para el propio estudiante)
+    info = _safe_get(f"{STUDENTS_URL}/students/me", token)
     return info if isinstance(info, dict) else {}
 
 
