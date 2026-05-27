@@ -24,7 +24,7 @@ services:
     volumes:
       - student-db-data:/var/lib/postgresql/data
 
-  # ── Auth Service (puerto 8000 interno) ─────────────────────
+  # ── Auth Service ─────────────────────
   auth-service:
     build: ./auth-service
     ports:
@@ -34,8 +34,9 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@auth-db:5432/authdb
       AUTH_SECRET_KEY: esto_ta_protegido
-    
-  # ── Student Service (puerto 8001 externo / 8000 interno) ────────────────────
+      ENABLE_METRICS: "true"
+
+  # ── Student Service ─────────────────────
   student_service:
     build: ./student_service
     ports:
@@ -45,10 +46,9 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@student-db:5432/studentdb
       AUTH_SECRET_KEY: esto_ta_protegido
-  
-    
+      ENABLE_METRICS: "true"
 
-  # ── API Gateway (puerto 8002) ───────────────────────────
+  # ── API Gateway ─────────────────────
   gateway_service:
     build: ./gateway_service
     ports:
@@ -61,30 +61,34 @@ services:
       - grades_service
       - payment_service
       - reporting_service
+    environment:
+      ENABLE_METRICS: "true"        # ← AGREGADO
 
- # servicio académico (puerto 8003 externo / 8000 interno) ──────────────────
-  academic-db: 
-      image: postgres:15-alpine
-      environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: academicdb
-      ports:
-          - "5434:5432"
-      volumes:
-          - academic-db-data:/var/lib/postgresql/data
+  # ── Base de datos Academic ─────────────────────
+  academic-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: academicdb
+    ports:
+      - "5434:5432"
+    volumes:
+      - academic-db-data:/var/lib/postgresql/data
 
-  academic_service: 
-      build: ./academic_offer_service
-      depends_on:
-          - academic-db
-      ports:
-          - "8003:8000"
-      environment:
-          DATABASE_URL: postgresql://postgres:postgres@academic-db:5432/academicdb
-      
-      command: sh -c "./wait-for-db.sh && uvicorn main:app --host 0.0.0.0 --port 8000"
+  # ── Academic Service ─────────────────────
+  academic_service:
+    build: ./academic_offer_service
+    depends_on:
+      - academic-db
+    ports:
+      - "8003:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@academic-db:5432/academicdb
+      ENABLE_METRICS: "true"
+    command: sh -c "./wait-for-db.sh && uvicorn main:app --host 0.0.0.0 --port 8000"
 
+  # ── Base de datos Enrollment ─────────────────────
   enrollment-db:
     image: postgres:15-alpine
     environment:
@@ -96,6 +100,7 @@ services:
     volumes:
       - enrollment-db-data:/var/lib/postgresql/data
 
+  # ── Enrollment Service ─────────────────────
   enrollment_service:
     build: ./enrollment_service
     depends_on:
@@ -105,8 +110,10 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@enrollment-db:5432/enrollmentdb
       AUTH_SECRET_KEY: esto_ta_protegido
+      ENABLE_METRICS: "true"
     command: sh -c "./wait-for-db.sh && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
+  # ── Base de datos Grades ─────────────────────
   grades-db:
     image: postgres:15-alpine
     environment:
@@ -118,6 +125,7 @@ services:
     volumes:
       - grades-db-data:/var/lib/postgresql/data
 
+  # ── Grades Service ─────────────────────
   grades_service:
     build: ./grades_service
     depends_on:
@@ -127,8 +135,10 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@grades-db:5432/gradesdb
       AUTH_SECRET_KEY: esto_ta_protegido
+      ENABLE_METRICS: "true"
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 
+  # ── Base de datos Payment ─────────────────────
   payment-db:
     image: postgres:15-alpine
     environment:
@@ -140,6 +150,7 @@ services:
     volumes:
       - payment-db-data:/var/lib/postgresql/data
 
+  # ── Payment Service ─────────────────────
   payment_service:
     build:
       context: ./payment_service
@@ -165,8 +176,10 @@ services:
       WOMPI_WEBHOOK_TOLERANCE_SECONDS: 600
       HTTP_TIMEOUT_SECONDS: 10000
       LOG_LEVEL: INFO
+      ENABLE_METRICS: "true"
     command: sh -c "./wait-for-db.sh && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
+  # ── Reporting Service ─────────────────────
   reporting_service:
     build: ./reporting_service
     depends_on:
@@ -182,8 +195,43 @@ services:
       COURSES_SERVICE_URL: http://academic_service:8000
       PAYMENT_SERVICE_URL: http://payment_service:8000
       AUTH_SECRET_KEY: esto_ta_protegido
+      ENABLE_METRICS: "true"
     command: uvicorn app.main:app --host 0.0.0.0 --port 8001
-      
+
+  # ── Prometheus ─────────────────────        ← CORREGIDO (sin networks)
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: sgau_prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+      - '--web.enable-lifecycle'
+
+  # ── Grafana ─────────────────────           ← CORREGIDO (sin networks)
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: sgau_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: sgau2024
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+
 volumes:
   auth-db-data:
   student-db-data:
@@ -191,3 +239,5 @@ volumes:
   enrollment-db-data:
   grades-db-data:
   payment-db-data:
+  prometheus_data:
+  grafana_data:
