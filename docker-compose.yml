@@ -62,7 +62,7 @@ services:
       - payment_service
       - reporting_service
     environment:
-      ENABLE_METRICS: "true"        # ← AGREGADO
+      ENABLE_METRICS: "true"
 
   # ── Base de datos Academic ─────────────────────
   academic-db:
@@ -79,12 +79,14 @@ services:
   # ── Academic Service ─────────────────────
   academic_service:
     build: ./academic_offer_service
+    hostname: academic_service          # ← AGREGADO
     depends_on:
       - academic-db
     ports:
       - "8003:8000"
     environment:
       DATABASE_URL: postgresql://postgres:postgres@academic-db:5432/academicdb
+      AUTH_SECRET_KEY: esto_ta_protegido 
       ENABLE_METRICS: "true"
     command: sh -c "./wait-for-db.sh && uvicorn main:app --host 0.0.0.0 --port 8000"
 
@@ -155,6 +157,7 @@ services:
     build:
       context: ./payment_service
       dockerfile: Dockerfile
+    hostname: payment_service           # ← AGREGADO
     depends_on:
       - payment-db
     ports:
@@ -177,7 +180,7 @@ services:
       HTTP_TIMEOUT_SECONDS: 10000
       LOG_LEVEL: INFO
       ENABLE_METRICS: "true"
-    command: sh -c "./wait-for-db.sh && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    
 
   # ── Reporting Service ─────────────────────
   reporting_service:
@@ -198,7 +201,7 @@ services:
       ENABLE_METRICS: "true"
     command: uvicorn app.main:app --host 0.0.0.0 --port 8001
 
-  # ── Prometheus ─────────────────────        ← CORREGIDO (sin networks)
+  # ── Prometheus ─────────────────────
   prometheus:
     image: prom/prometheus:v2.51.0
     container_name: sgau_prometheus
@@ -214,7 +217,7 @@ services:
       - '--storage.tsdb.retention.time=15d'
       - '--web.enable-lifecycle'
 
-  # ── Grafana ─────────────────────           ← CORREGIDO (sin networks)
+  # ── Grafana ─────────────────────
   grafana:
     image: grafana/grafana:10.4.0
     container_name: sgau_grafana
